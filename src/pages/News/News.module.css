@@ -1,0 +1,27 @@
+.block {
+  /* text-align: center; */
+}
+
+.head {
+  font-size: 43px;
+  padding: 40px 0px;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  gap: 35px;
+  padding: 0px 49px;
+  max-width: 100%;
+}
+
+.cards::-webkit-scrollbar {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.line {
+  margin: 30px 65px 60px 65px;
+}

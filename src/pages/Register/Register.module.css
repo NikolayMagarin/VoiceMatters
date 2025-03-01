@@ -1,0 +1,81 @@
+.Register {
+  display: flex;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background-color: #a3a3a3;
+}
+
+.image {
+  height: 100vh;
+  max-height: 100%;
+}
+
+.form-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 355px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 26px;
+}
+
+.input {
+  width: 355px;
+  height: 50px;
+
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  border: none;
+
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  font-size: 20px;
+
+  transition: 150ms;
+}
+
+.input:focus {
+  outline: none;
+  /* border-color: #000f;
+  border-width: 2px; */
+}
+
+.input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.submit-btn {
+  width: 250px;
+  height: 45px;
+
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  border: none;
+
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  font-size: 20px;
+
+  transition: 150ms;
+
+  align-self: center;
+  cursor: pointer;
+}
+
+.submit-btn:focus,
+.submit-btn:hover {
+  background-color: #c5c5c5;
+}

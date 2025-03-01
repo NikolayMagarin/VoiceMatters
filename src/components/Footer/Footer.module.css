@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+
+  background-color: #d9d9d9;
+  /* min-height: 200px; */
+
+  padding: 45px 65px;
+
+  border-radius: 25px 25px 0 0;
+}
+
+.footer > div {
+  /* flex: 1; */
+}
