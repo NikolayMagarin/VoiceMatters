@@ -1,6 +1,7 @@
 .header {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 
   background-color: #d9d9d9;
   /* height: 30px; */
@@ -12,6 +13,7 @@
   top: 0;
   width: 100%;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .nav-area {
@@ -105,15 +107,19 @@
 
 .account-area {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 
   max-height: 30px;
+  align-items: center;
 }
 
-.account-area a:hover {
-  color: #505050;
+.account-area:hover {
+  color: #292929;
 }
 
-.account-area img:hover {
-  filter: brightness(1.9);
+.account-area img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../lib/auth';
 import styles from './Header.module.css';
 
 import LogoIcon from './images/logo60.png';
 import SearchIcon from './images/search-icon.svg';
-import UserIcon from './images/user-icon.svg';
 
 function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
   const [suggestions, setSuggestions] = useState<Array<string>>([]);
+  const { user, isAuthenticated } = useAuth();
 
   /**
    * TODO: делать запросы на подсказки при вводе
@@ -86,14 +87,29 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
           }}
         />
       </div>
-      <div className={styles['account-area']}>
-        <Link to='/login' className={styles.link}>
-          Войти
-        </Link>
-        <Link to='/my'>
-          <img src={UserIcon} alt='search icon' />
-        </Link>
-      </div>
+
+      {!isAuthenticated && (
+        <>
+          <Link
+            to='/login'
+            className={`${styles.link} ${styles['account-area']}`}
+          >
+            Войти
+            <img src='/assets/images/user-icon.svg' alt='user profile' />
+          </Link>
+        </>
+      )}
+
+      {isAuthenticated && (
+        <>
+          <Link to='/my' className={`${styles.link} ${styles['account-area']}`}>
+            <>
+              {`${user.firstName} ${user.lastName}`}
+              <img src={user.profileImgUrl} alt='user profile' />
+            </>
+          </Link>
+        </>
+      )}
     </header>
   );
 }
