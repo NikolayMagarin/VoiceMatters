@@ -32,7 +32,7 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
       <div className={styles['nav-area']}>
         <div className={styles['logo-wrapper']}>
           <img src={LogoIcon} className={styles.logo} alt='logo'></img>
-          GreenCause
+          VoiceMatters
         </div>
         <nav className={styles['nav-links']}>
           <div

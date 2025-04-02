@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 import {
@@ -103,18 +104,24 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
 
   const token = Cookies.get(config.cookie.accessToken);
   if (token && !state.user.firstName) {
-    api.get<GetUserResponse>(apiPath.getMyUser).then((response) => {
-      login(
-        {
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
-          profileImgUrl: response.data.imageUuid
-            ? imageUrl(response.data.imageUuid)
-            : '/assets/images/user-icon.svg',
-        },
-        token
-      );
-    });
+    api
+      .get<GetUserResponse>(apiPath.getMyUser)
+      .then((response) => {
+        login(
+          {
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
+            profileImgUrl: response.data.imageUuid
+              ? imageUrl(response.data.imageUuid)
+              : '/assets/images/user-icon.svg',
+          },
+          token
+        );
+      })
+      .catch(() => {
+        Cookies.remove(config.cookie.accessToken);
+        Cookies.remove(config.cookie.refreshToken);
+      });
   }
 
   const logout = useCallback(() => {

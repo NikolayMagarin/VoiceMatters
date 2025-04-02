@@ -18,19 +18,19 @@ export function validateFormData(data: FormData):
   };
 
   if (!values.FirstName) {
-    return { error: 'Обязательное поле "Имя" не заплнено', data: null };
+    return { error: 'Обязательное поле "Имя" не заполнено', data: null };
   }
 
   if (!values.LastName) {
-    return { error: 'Обязательное поле "Фамилия" не заплнено', data: null };
+    return { error: 'Обязательное поле "Фамилия" не заполнено', data: null };
   }
 
   if (!values.Email) {
-    return { error: 'Обязательное поле "Эл. почта" не заплнено', data: null };
+    return { error: 'Обязательное поле "Эл. почта" не заполнено', data: null };
   }
 
   if (!values.Password) {
-    return { error: 'Обязательное поле "Пароль" не заплнено', data: null };
+    return { error: 'Обязательное поле "Пароль" не заполнено', data: null };
   }
 
   if (
