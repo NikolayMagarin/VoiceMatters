@@ -31,4 +31,22 @@ export const apiPath = {
   login: '/api/auth/signin',
   refreshToken: '/api/auth/refresh-token',
   getMyUser: '/api/users/me',
+  createPetition: '/api/petitions',
+  getTags: (
+    searchPhrase?: string,
+    pageSize: number = 10,
+    pageNumber: number = 1
+  ) => {
+    if (!searchPhrase) {
+      return '/api/tags';
+    }
+
+    const query = new URLSearchParams({
+      SearchPhrase: searchPhrase,
+      PageNumber: pageNumber.toString(),
+      PageSize: pageSize.toString(),
+    });
+
+    return `/api/tags?${query.toString()}`;
+  },
 };

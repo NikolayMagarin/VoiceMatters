@@ -22,3 +22,37 @@ export interface GetUserResponse {
   petitionsSigned: number;
   createdDate: string; // ?
 }
+
+export type GetTagsResponse = { id: string; name: string }[];
+
+export type CreatePetitionResponse = {
+  id: string;
+  title: string;
+  textPayload: string;
+  signQuantity: number;
+  signQuantityPerDay: number;
+  isCompleted: boolean;
+  isBlocked: boolean;
+  signedByCurrentUser: boolean;
+  tags: {
+    id: string;
+    name: string;
+  }[];
+  images: {
+    id: string;
+    uuid: string;
+    caption: string;
+    order: number;
+  }[];
+  newsTitle: string;
+  creator: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    sex: 'Male' | 'Female' | null;
+    imageUuid: string;
+    isBlocked: boolean;
+  };
+  createdDate: string;
+  updatedDate: string;
+};

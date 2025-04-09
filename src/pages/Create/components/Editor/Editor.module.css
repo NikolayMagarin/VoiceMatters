@@ -1,0 +1,93 @@
+.editor {
+  position: relative;
+  z-index: -1;
+
+  border-radius: 15px;
+  text-indent: 24px;
+  font-size: 16px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  min-height: 300px;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  background-color: #fefefe;
+  transition: 100ms;
+}
+
+.wrapper {
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
+
+  transition: 100ms;
+
+  position: relative;
+  z-index: 0;
+}
+
+.wrapper:has(div:focus) {
+  border: 1px solid #dfdfdf;
+}
+
+.toolbar {
+  border-radius: 15px !important;
+  transition: 100ms;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateX(calc(-100% - 5px));
+
+  flex-direction: column;
+  gap: 15px;
+}
+
+.toolbar > div {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toolbar > div > * {
+  border-radius: 10px !important;
+}
+
+.toolbar > div > div:hover {
+  box-shadow: none;
+  border: 1px solid rgb(215, 215, 215);
+}
+
+.toolbar > div > div[aria-selected='true']:hover {
+  box-shadow: 1px 1px 0px #bfbdbd inset;
+}
+
+.editor a + img {
+  left: 0;
+  top: 0;
+  transform: translate(-100%);
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    position: absolute;
+    flex-direction: row;
+    transform: translateY(calc(-100% - 5px));
+    gap: 5px;
+  }
+
+  .toolbar > div {
+    flex-direction: row;
+    gap: 0px;
+  }
+
+  .wrapper {
+    margin-top: 30px;
+  }
+
+  .editor {
+    max-height: 80vh;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
