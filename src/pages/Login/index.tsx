@@ -47,6 +47,7 @@ function Login() {
 
         login(
           {
+            id: userData.id,
             firstName: userData.firstName,
             lastName: userData.lastName,
             profileImgUrl: userData.imageUuid

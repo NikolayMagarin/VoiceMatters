@@ -28,11 +28,7 @@ function My() {
       <main className={styles.main}>
         <div className={styles['user-info']}>
           <div>
-            <img
-              src={UserAvatar}
-              alt='user avatar'
-              className={styles['user-avatar']}
-            />
+            <img src={UserAvatar} alt='' className={styles['user-avatar']} />
           </div>
           <div className={styles['user-personals']}>
             <div className={styles['user-name']}>{userInfo.name}</div>

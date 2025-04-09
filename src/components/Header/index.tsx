@@ -31,7 +31,7 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
     <header className={styles.header}>
       <div className={styles['nav-area']}>
         <div className={styles['logo-wrapper']}>
-          <img src={LogoIcon} className={styles.logo} alt='logo'></img>
+          <img src={LogoIcon} className={styles.logo} alt=''></img>
           VoiceMatters
         </div>
         <nav className={styles['nav-links']}>
@@ -68,11 +68,7 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
         </nav>
       </div>
       <div className={styles['search-area']}>
-        <img
-          src={SearchIcon}
-          alt='search icon'
-          className={styles['search-icon']}
-        />
+        <img src={SearchIcon} alt='' className={styles['search-icon']} />
         <input
           className={styles.input}
           type='search'
@@ -95,7 +91,7 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
             className={`${styles.link} ${styles['account-area']}`}
           >
             Войти
-            <img src='/assets/images/user-icon.svg' alt='user profile' />
+            <img src='/assets/images/user-icon.svg' alt='' />
           </Link>
         </>
       )}
@@ -105,7 +101,7 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
           <Link to='/my' className={`${styles.link} ${styles['account-area']}`}>
             <>
               {`${user.firstName} ${user.lastName}`}
-              <img src={user.profileImgUrl} alt='user profile' />
+              <img src={user.profileImgUrl} alt='' />
             </>
           </Link>
         </>

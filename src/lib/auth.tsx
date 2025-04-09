@@ -1,4 +1,3 @@
-import { isAxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 import {
@@ -16,6 +15,7 @@ import { GetUserResponse } from './api/types';
 type AuthStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 
 interface UserState {
+  id: string;
   firstName: string;
   lastName: string;
   profileImgUrl: string;
@@ -30,6 +30,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: {
+    id: '',
     firstName: '',
     lastName: '',
     profileImgUrl: '',
@@ -109,6 +110,7 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
       .then((response) => {
         login(
           {
+            id: response.data.id,
             firstName: response.data.firstName,
             lastName: response.data.lastName,
             profileImgUrl: response.data.imageUuid

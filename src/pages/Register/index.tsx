@@ -64,6 +64,7 @@ function Register() {
 
         login(
           {
+            id: userData.id,
             firstName: userData.firstName,
             lastName: userData.lastName,
             profileImgUrl: userData.imageUuid
@@ -156,7 +157,7 @@ function Register() {
                       <img
                         className={styles['image-preview']}
                         src={imagePreview}
-                        alt='preview'
+                        alt=''
                       ></img>
                       {'Изменить'}
                     </>
