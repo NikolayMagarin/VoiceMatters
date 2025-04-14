@@ -7,12 +7,17 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <AuthProvider value={defaultAuthProviderValue}>
-    <QueryClientProvider client={new QueryClient()}>
+    <QueryClientProvider client={queryClient}>
       <AlertProvider template={AlertTemplate} timeout={5000}>
         <BrowserRouter>
           <App />

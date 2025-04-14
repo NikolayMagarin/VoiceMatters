@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  align-items: center;
+}
+
+.slider {
+  width: 80%;
+  min-width: 100px;
+  height: 15px;
+
+  margin: 5px;
+
+  box-sizing: border-box;
+
+  border-radius: 10px;
+  background: #929292;
+}
+
+.progress {
+  height: 100%;
+
+  border-radius: 10px;
+  background: #333333;
+}
+
+.labels-wrapper {
+  width: 80%;
+  min-width: 100px;
+
+  display: flex;
+  justify-content: space-between;
+
+  line-height: 140%;
+}
+
+.current-label {
+  text-align: left;
+}
+
+.goal-label {
+  text-align: right;
+
+  color: grey;
+}
+
+.label {
+  font-size: 16px;
+}
+
+.today {
+  color: #606060;
+}

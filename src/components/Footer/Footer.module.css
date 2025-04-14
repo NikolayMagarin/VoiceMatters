@@ -1,11 +1,12 @@
 .footer {
+  margin-top: auto;
+
   display: flex;
   justify-content: space-around;
 
+  padding: 45px 65px;
   background-color: #d9d9d9;
   /* min-height: 200px; */
-
-  padding: 45px 65px;
 
   border-radius: 25px 25px 0 0;
 }

@@ -1,31 +1,30 @@
 import { Routes, Route } from 'react-router-dom';
 import styles from './App.module.css';
-import Browse from './pages/Browse';
+import SearchPetitions from './pages/SearchPetitions';
 import Create from './pages/Create';
 import Login from './pages/Login';
-import My from './pages/My';
+import User from './pages/User';
 import News from './pages/News';
-import Promo from './pages/Promo';
+import Petition from './pages/Petition';
 import Register from './pages/Register';
-// import Header from './components/Header';
 import NotFound from './pages/NotFound';
+import SearchUsers from './pages/SearchUsers';
 
 function App() {
   return (
     <div className={styles.App}>
-      <div>
-        <Routes>
-          <Route path='/' element={<News />}></Route>
-          <Route path='/browse' element={<Browse />}></Route>
-          <Route path='/create' element={<Create />}></Route>
-          <Route path='/register' element={<Register />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/my' element={<My />}></Route>
-          <Route path='/view/:id' element={<Promo />}></Route>
+      <Routes>
+        <Route path='/' element={<News />} />
+        <Route path='/create' element={<Create />} />
+        <Route path='/petitions' element={<SearchPetitions />} />
+        <Route path='/petition/:id' element={<Petition />} />
+        <Route path='/users' element={<SearchUsers />} />
+        <Route path='/user/:id' element={<User />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
 
-          <Route path='*' element={<NotFound />}></Route>
-        </Routes>
-      </div>
+        <Route path='*' element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

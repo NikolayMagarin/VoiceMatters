@@ -1,6 +1,5 @@
 import Header from '../../components/Header';
-import styles from './My.module.css';
-import UserAvatar from './images/avatar.png';
+import styles from './User.module.css';
 
 interface UserInfo {
   name: string;
@@ -28,7 +27,11 @@ function My() {
       <main className={styles.main}>
         <div className={styles['user-info']}>
           <div>
-            <img src={UserAvatar} alt='' className={styles['user-avatar']} />
+            <img
+              src='/assets/images/avatar.png'
+              alt=''
+              className={styles['user-avatar']}
+            />
           </div>
           <div className={styles['user-personals']}>
             <div className={styles['user-name']}>{userInfo.name}</div>

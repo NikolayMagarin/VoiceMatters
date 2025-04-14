@@ -164,7 +164,6 @@
   cursor: pointer;
 }
 
-.submit-btn:focus,
 .submit-btn:hover {
   background-color: #c5c5c5;
 }

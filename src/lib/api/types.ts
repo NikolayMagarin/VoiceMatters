@@ -25,7 +25,7 @@ export interface GetUserResponse {
 
 export type GetTagsResponse = { id: string; name: string }[];
 
-export type CreatePetitionResponse = {
+export interface GetPetitionResponse {
   id: string;
   title: string;
   textPayload: string;
@@ -55,4 +55,15 @@ export type CreatePetitionResponse = {
   };
   createdDate: string;
   updatedDate: string;
-};
+}
+
+export type CreatePetitionResponse = GetPetitionResponse;
+
+export type GetPetitionUsersResponse = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  sex: string;
+  imageUuid: string;
+  isBlocked: boolean;
+}[];

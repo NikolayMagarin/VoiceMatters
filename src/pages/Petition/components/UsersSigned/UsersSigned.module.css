@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  padding: 20px 0px;
+
+  gap: 20px 20px;
+}
+
+.user-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+
+  flex: 1 1 20%;
+
+  max-width: 20%;
+
+  min-width: 200px;
+  align-items: center;
+
+  padding: 5px 10px;
+
+  text-decoration: none;
+  color: black;
+
+  background: #f1f1f1;
+  border-radius: 25px;
+
+  transition: 100ms;
+}
+
+.user-wrapper:hover {
+  background: #eaeaea;
+}
+
+.user-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.user-wrapper img {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btns-wrapper > button {
+  height: 30px;
+  min-width: 140px;
+
+  background: white;
+
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
+
+  font: inherit;
+  font-size: 16px;
+
+  transition: 100ms;
+}
+
+.btns-wrapper > button:not(:disabled) {
+  cursor: pointer;
+}
+
+.btns-wrapper > button:not(:disabled):hover {
+  background: #fdfdfd;
+}

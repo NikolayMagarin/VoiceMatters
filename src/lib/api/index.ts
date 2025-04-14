@@ -49,4 +49,19 @@ export const apiPath = {
 
     return `/api/tags?${query.toString()}`;
   },
+  getPetition: (id: string) => `api/petitions/${id}`,
+  signPetition: (id: string) => `api/petitions/${id}/sign`,
+  getPetitionUsers: (
+    petitionId: string,
+    pageSize: number = 10,
+    pageNumber: number = 1
+  ) => {
+    const query = new URLSearchParams({
+      PetitionId: petitionId,
+      PageNumber: pageNumber.toString(),
+      PageSize: pageSize.toString(),
+    });
+
+    return `api/petitions/users?${query.toString()}`;
+  },
 };

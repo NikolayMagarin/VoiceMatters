@@ -1,31 +1,15 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../lib/auth';
 import styles from './Header.module.css';
 
 import LogoIcon from './images/logo60.png';
-import SearchIcon from './images/search-icon.svg';
 
-function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
-  const [suggestions, setSuggestions] = useState<Array<string>>([]);
+function Header({
+  navigated,
+}: {
+  navigated?: 'news' | 'create' | 'petitions' | 'users';
+}) {
   const { user, isAuthenticated } = useAuth();
-
-  /**
-   * TODO: делать запросы на подсказки при вводе
-   *
-   * А при нажатии на Enter будет переход на другую страницу, которая
-   * и будет осуществлять поиск и отображение
-   */
-
-  const onSearchSubmit = (value: string) => {
-    alert(value);
-    setSuggestions([]);
-  };
-
-  const onSeacrhChange = (value: string) => {
-    // вообще тут нужен дебаунс потом когда запросы делать буду (или тхротл?)
-    setSuggestions(suggestions.concat(value));
-  };
 
   return (
     <header className={styles.header}>
@@ -57,54 +41,47 @@ function Header({ navigated }: { navigated?: 'news' | 'browse' | 'create' }) {
           </div>
           <div
             className={`${styles['link-wrapper']} ${
-              navigated === 'browse' ? styles.navigated : ''
+              navigated === 'petitions' ? styles.navigated : ''
             }`}
           >
-            <Link to='/browse' className={styles.link}>
-              Посмотреть петиции
+            <Link to='/petitions' className={styles.link}>
+              Петиции
+            </Link>
+            <div className={styles.underline}></div>
+          </div>
+          <div
+            className={`${styles['link-wrapper']} ${
+              navigated === 'users' ? styles.navigated : ''
+            }`}
+          >
+            <Link to='/users' className={styles.link}>
+              Пользователи
             </Link>
             <div className={styles.underline}></div>
           </div>
         </nav>
       </div>
-      <div className={styles['search-area']}>
-        <img src={SearchIcon} alt='' className={styles['search-icon']} />
-        <input
-          className={styles.input}
-          type='search'
-          name='search'
-          autoComplete={'off'}
-          onKeyDown={(event) => {
-            event.code === 'Enter' && onSearchSubmit(event.currentTarget.value);
-          }}
-          onChange={(event) => onSeacrhChange(event.currentTarget.value)}
-          onSubmit={(event) => {
-            onSearchSubmit(event.currentTarget.value);
-          }}
-        />
-      </div>
 
       {!isAuthenticated && (
-        <>
-          <Link
-            to='/login'
-            className={`${styles.link} ${styles['account-area']}`}
-          >
-            Войти
-            <img src='/assets/images/user-icon.svg' alt='' />
-          </Link>
-        </>
+        <Link
+          to='/login'
+          className={`${styles.link} ${styles['account-area']}`}
+        >
+          Войти
+          <img src='/assets/images/user-icon.svg' alt='' />
+        </Link>
       )}
 
       {isAuthenticated && (
-        <>
-          <Link to='/my' className={`${styles.link} ${styles['account-area']}`}>
-            <>
-              {`${user.firstName} ${user.lastName}`}
-              <img src={user.profileImgUrl} alt='' />
-            </>
-          </Link>
-        </>
+        <Link
+          to={`/user/${user.id}`}
+          className={`${styles.link} ${styles['account-area']}`}
+        >
+          <>
+            {`${user.firstName} ${user.lastName}`}
+            <img src={user.profileImgUrl} alt='' />
+          </>
+        </Link>
       )}
     </header>
   );
