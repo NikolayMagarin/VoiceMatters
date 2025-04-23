@@ -112,4 +112,21 @@ export const apiPath = {
 
     return `api/petitions?${query}`;
   },
+  searchUsers: (
+    searchPhrase?: string,
+    pageSize: number = 10,
+    pageNumber: number = 1
+  ) => {
+    if (!searchPhrase) {
+      return '/api/users';
+    }
+
+    const query = new URLSearchParams({
+      SearchPhrase: searchPhrase,
+      PageNumber: pageNumber.toString(),
+      PageSize: pageSize.toString(),
+    });
+
+    return `/api/users?${query}`;
+  },
 };

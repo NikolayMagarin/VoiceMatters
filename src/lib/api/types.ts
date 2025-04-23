@@ -82,3 +82,12 @@ export interface SearchPetitionsParams {
 }
 
 export type SearchPetitionsResponse = GetPetitionResponse[];
+
+export type SearchUsersResponse = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  sex: string | null;
+  imageUuid: string | null;
+  isBlocked: boolean;
+}[];

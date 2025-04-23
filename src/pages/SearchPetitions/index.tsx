@@ -117,30 +117,25 @@ function Pagination({
   lastPageNumber,
 }: PaginationProps) {
   return (
-    <>
-      {2 > 1 && (
-        <div className={styles['page-btns']}>
-          <button
-            onClick={() => {
-              onPageChange(pageNumber - 1);
-            }}
-            disabled={pageNumber === 1}
-          >
-            Предыдущая
-          </button>
-          Страница {pageNumber}{' '}
-          {lastPageNumber !== null && `из ${lastPageNumber}`}
-          <button
-            onClick={() => {
-              onPageChange(pageNumber + 1);
-            }}
-            disabled={pageNumber === lastPageNumber}
-          >
-            Следующая
-          </button>
-        </div>
-      )}
-    </>
+    <div className={styles['page-btns']}>
+      <button
+        onClick={() => {
+          onPageChange(pageNumber - 1);
+        }}
+        disabled={pageNumber === 1}
+      >
+        Предыдущая
+      </button>
+      Страница {pageNumber} {lastPageNumber !== null && `из ${lastPageNumber}`}
+      <button
+        onClick={() => {
+          onPageChange(pageNumber + 1);
+        }}
+        disabled={pageNumber === lastPageNumber}
+      >
+        Следующая
+      </button>
+    </div>
   );
 }
 
