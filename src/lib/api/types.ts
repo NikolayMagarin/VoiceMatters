@@ -67,3 +67,18 @@ export type GetPetitionUsersResponse = {
   imageUuid: string;
   isBlocked: boolean;
 }[];
+
+export interface SearchPetitionsParams {
+  title: string;
+  userId: string;
+  tagIds: string[];
+  completed: 'include' | 'exclude' | 'default';
+  sort: {
+    type: 'signs' | 'signsToday' | 'date';
+    descending: boolean;
+  };
+  pageNumber: number;
+  pageSize: number;
+}
+
+export type SearchPetitionsResponse = GetPetitionResponse[];

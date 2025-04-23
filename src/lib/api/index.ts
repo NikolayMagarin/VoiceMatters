@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { config } from '../../config';
 import Cookies from 'js-cookie';
+import { SearchPetitionsParams } from './types';
 
 const defaultTransforms = axios.defaults.transformRequest
   ? Array.isArray(axios.defaults.transformRequest)
@@ -47,7 +48,7 @@ export const apiPath = {
       PageSize: pageSize.toString(),
     });
 
-    return `/api/tags?${query.toString()}`;
+    return `/api/tags?${query}`;
   },
   getPetition: (id: string) => `api/petitions/${id}`,
   signPetition: (id: string) => `api/petitions/${id}/sign`,
@@ -62,6 +63,53 @@ export const apiPath = {
       PageSize: pageSize.toString(),
     });
 
-    return `api/petitions/users?${query.toString()}`;
+    return `api/petitions/users?${query}`;
+  },
+  searchPetitions: (params: SearchPetitionsParams) => {
+    const query = new URLSearchParams({
+      PageNumber: params.pageNumber.toString(),
+      PageSize: params.pageSize.toString(),
+    });
+
+    if (params.title) {
+      query.set('SearchPhrase', params.title);
+    }
+
+    if (params.completed !== 'default') {
+      query.set(
+        'IncludeCompleted',
+        params.completed === 'include' ? 'Enable' : 'Disable'
+      );
+    }
+
+    switch (params.sort.type) {
+      case 'date':
+        query.set(
+          'SortByDate',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+      case 'signs':
+        query.set(
+          'SortBySignQuantity',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+      case 'signsToday':
+        query.set(
+          'SortBySignQuantityPerDay',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+    }
+
+    params.tagIds.forEach((tagId) => query.append('TagIds', tagId));
+
+    if (params.userId) {
+      query.set('CreatorId', params.userId);
+      return `api/users/petitions?${query}`;
+    }
+
+    return `api/petitions?${query}`;
   },
 };
