@@ -9,6 +9,7 @@ import Petition from './pages/Petition';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import SearchUsers from './pages/SearchUsers';
+import Edit from './pages/Edit';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<News />} />
         <Route path='/create' element={<Create />} />
+        <Route path='/edit/:id' element={<Edit />} />
         <Route path='/petitions' element={<SearchPetitions />} />
         <Route path='/petition/:id' element={<Petition />} />
         <Route path='/users' element={<SearchUsers />} />

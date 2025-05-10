@@ -129,4 +129,9 @@ export const apiPath = {
 
     return `/api/users?${query}`;
   },
+  updatePetiton: 'api/petitions',
+  completePetiton: (id: string) => `api/petitions/${id}/complete`,
+  createNews: 'api/news',
+  updateNews: 'api/news',
+  deleteNews: (id: string) => `api/news/${id}`,
 };

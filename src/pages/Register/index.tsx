@@ -74,6 +74,8 @@ function Register() {
           accessToken
         );
 
+        URL.revokeObjectURL(imagePreview);
+
         navigate('/');
       } catch (error) {
         console.error(error);

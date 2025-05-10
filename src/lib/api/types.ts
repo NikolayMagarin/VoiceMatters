@@ -14,13 +14,13 @@ export interface GetUserResponse {
   lastName: string;
   phone: string | null;
   email: string;
-  birthDate: string | null; // ?
+  birthDate: string | null;
   sex: string | null;
   imageUuid: string | null;
   isBlocked: boolean;
   petitionsCreated: number;
   petitionsSigned: number;
-  createdDate: string; // ?
+  createdDate: string;
 }
 
 export type GetTagsResponse = { id: string; name: string }[];
@@ -44,7 +44,8 @@ export interface GetPetitionResponse {
     caption: string;
     order: number;
   }[];
-  newsTitle: string;
+  newsTitle: string | null;
+  newsId: string | null;
   creator: {
     id: string;
     firstName: string;
@@ -91,3 +92,29 @@ export type SearchUsersResponse = {
   imageUuid: string | null;
   isBlocked: boolean;
 }[];
+
+export type UpdatePetitionResponse = GetPetitionResponse;
+
+export interface CreateNewsResponse {
+  id: string;
+  title: string;
+  petitionId: string;
+  petitionImages: [
+    {
+      id: string;
+      uuid: string;
+      caption: string;
+      order: number;
+    }
+  ];
+  petitionTags: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
+  signQuantity: number;
+  isPetitionBlocked: boolean;
+}
+
+export type UpdateNewsResponse = CreateNewsResponse;
