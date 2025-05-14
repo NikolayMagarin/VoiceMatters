@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.page-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-btns > button {
+  height: 30px;
+  min-width: 140px;
+
+  background: white;
+
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
+
+  font: inherit;
+  font-size: 16px;
+
+  transition: 100ms;
+}
+
+.page-btns > button:not(:disabled) {
+  cursor: pointer;
+}
+
+.page-btns > button:not(:disabled):hover {
+  background: #fdfdfd;
+}

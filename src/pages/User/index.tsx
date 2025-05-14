@@ -1,55 +1,100 @@
+import { useMemo } from 'react';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import { api, apiPath } from '../../lib/api';
+import { GetUserResponse } from '../../lib/api/types';
+import { imageUrl } from '../../utils/imageUrl';
+import SearchPetitions from './components/SearchPetitions';
 import styles from './User.module.css';
 
-interface UserInfo {
-  name: string;
-  surname: string;
-  location?: string;
-  stats?: Record<string, [string, string | number]>;
-}
+function User() {
+  const userId = useParams<'id'>().id!;
 
-function My() {
-  const userInfo: UserInfo = {
-    name: 'Иван',
-    surname: 'Иванович',
-    location: 'Москва, Россия',
-    stats: {
-      stat1: ['Статистика 1', 32445],
-      stat2: ['Статистика 2', 267354],
-      stat3: ['Статистика 3', 23],
-      stat4: ['Статистика 4', 62715],
-    },
-  };
+  const { data: user } = useQuery(
+    ['tagSuggestions', userId],
+    ({ queryKey: [_, id] }) => api.get<GetUserResponse>(apiPath.getUser(id)),
+    {
+      select: ({ data }) => data,
+    }
+  );
+
+  const personals = useMemo(
+    () =>
+      user &&
+      // prettier-ignore -
+      Object.entries({
+        'Полное имя': `${user.firstName} ${user.lastName}`,
+        Email: user.email,
+        Телефон: user.phone || '-',
+        'Дата рождения': user.birthDate
+          ? new Date(user.birthDate).toLocaleDateString('ru')
+          : '-',
+        Пол: user.sex ? (user.sex === 'Female' ? 'Женский' : 'Мужской') : '-',
+        [user.sex === 'Female' ? 'Зарегистрирована' : 'Зарегистрирован']:
+          new Date(user.createdDate).toLocaleDateString('ru'),
+      }),
+    [user]
+  );
 
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <div className={styles['user-info']}>
-          <div>
-            <img
-              src='/assets/images/avatar.png'
-              alt=''
-              className={styles['user-avatar']}
-            />
-          </div>
-          <div className={styles['user-personals']}>
-            <div className={styles['user-name']}>{userInfo.name}</div>
-            <div className={styles['user-name']}>{userInfo.surname}</div>
-            {userInfo.location && (
-              <div className={styles['user-location']}>{userInfo.location}</div>
+        <div className={styles['block-title']}>Профиль пользователя</div>
+        {user && (
+          <>
+            <div className={styles['info']}>
+              <div className={styles['left-block']}>
+                <div className={styles['avatar-wrapper']}>
+                  <img
+                    src={
+                      user.imageUuid
+                        ? imageUrl(user.imageUuid)
+                        : '/assets/images/avatar.png'
+                    }
+                    alt=''
+                    className={styles['avatar']}
+                  />
+                  <div className={styles['name']}>
+                    {user.firstName} {user.lastName}
+                  </div>
+                </div>
+              </div>
+              <div className={styles['personals-container']}>
+                {personals?.map(([key, value]) => (
+                  <div className={styles['personal-property']}>
+                    <span className={styles['personal-property-name']}>
+                      {key}
+                    </span>{' '}
+                    <span className={styles['personal-property-value']}>
+                      {value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className={styles['statistics']}>
+              <div className={styles['statistic']}>
+                Создано петиций: <b>{user.petitionsCreated}</b>
+              </div>
+              <div className={styles['statistic']}>
+                Подписано петиций: <b>{user.petitionsSigned}</b>
+              </div>
+            </div>
+            {user.petitionsCreated > 0 && (
+              <div style={{ marginTop: '50px' }}>
+                <div className={styles['block-title']}>
+                  Петиции пользователя
+                </div>
+                <SearchPetitions creatorId={user.id} />
+              </div>
             )}
-          </div>
-          <div className={styles['user-stats']}>
-            {userInfo.stats &&
-              Object.values(userInfo.stats).map(([text, val]) => (
-                <div>{`${text}: ${val}`}</div>
-              ))}
-          </div>
-        </div>
+          </>
+        )}
       </main>
     </>
   );
 }
 
-export default My;
+export default User;

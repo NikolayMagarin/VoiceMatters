@@ -134,4 +134,5 @@ export const apiPath = {
   createNews: 'api/news',
   updateNews: 'api/news',
   deleteNews: (id: string) => `api/news/${id}`,
+  getUser: (id: string) => `api/users/${id}`,
 };

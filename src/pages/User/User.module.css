@@ -2,35 +2,158 @@
   padding: 30px 90px;
 }
 
-.user-info {
+.info {
   display: flex;
+
   flex-direction: row;
-  gap: 50px;
+
+  gap: 15px;
+
+  /* background: #fefefe;
+  border: 1px solid #f1f1f1;
+  border-radius: 15px; */
 }
 
-.user-avatar {
-  width: 150px;
-  height: 150px;
-}
-
-.user-personals {
-  line-height: 200%;
-}
-
-.user-name {
-  font-size: 33px;
-}
-
-.user-location {
-  font-size: 25px;
-}
-
-.user-stats {
-  flex: 1;
+.avatar-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 
-  padding-left: 200px;
+  padding: 15px;
 
+  width: 300px;
+  min-height: 300px;
+
+  background: #fefefe;
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+
+  border: 1px solid #f1f1f1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  margin-top: 5px;
+  font-size: 30px;
+  max-width: 100%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.personals-container {
+  flex: 1;
+  min-width: 300px;
+
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+  padding: 5px;
+
+  background: #fefefe;
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
+}
+
+.personal-property {
+  display: flex;
+
+  padding: 8px 10px 15px 20px;
+
+  /* background: #fefefe;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px; */
+
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.personal-property:last-child {
+  border-bottom: none;
+}
+
+.personal-property-name {
+  font-weight: bold;
+  min-width: 300px;
+}
+
+.personal-property-value {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.statistics {
+  margin-top: 20px;
+
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.statistic {
+  flex: 1;
+  min-width: 300px;
+
+  padding: 15px;
+  text-align: center;
+
+  background-color: lightgray;
+  border-radius: 15px;
+}
+
+.block-title {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+  .avatar {
+    width: 150px;
+    height: 150px;
+  }
+
+  .avatar-wrapper {
+    width: 200px;
+    min-height: 200px;
+  }
+
+  .personal-property {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .personal-property-name {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px 15px;
+  }
+
+  .avatar-wrapper {
+    width: 100%;
+  }
+
+  .left-block {
+    width: 100%;
+  }
+
+  .personal-property-name {
+    min-width: 300px;
+  }
+
+  .info {
+    flex-wrap: wrap;
+  }
 }
