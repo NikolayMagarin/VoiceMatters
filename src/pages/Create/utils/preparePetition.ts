@@ -26,11 +26,8 @@ export async function preparePetition({
   if (images.length) {
     (await Promise.all(images.map((image) => getBlob(image.image)))).forEach(
       (file, i) => {
-        formData.append(`Images[${i}].File`, file, images[i].name);
-        formData.append(
-          `Images[${i}].Caption`,
-          images[i].name.length ? images[i].name : 'null' // backend doesn't accept empty captions
-        );
+        formData.append(`Images[${i}].File`, file, images[i].name || 'image');
+        formData.append(`Images[${i}].Caption`, images[i].name);
         formData.append(`Images[${i}].Order`, `${i + 1}`);
       }
     );

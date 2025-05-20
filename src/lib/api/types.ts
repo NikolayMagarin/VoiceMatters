@@ -41,7 +41,7 @@ export interface GetPetitionResponse {
   images: {
     id: string;
     uuid: string;
-    caption: string;
+    caption: string | null;
     order: number;
   }[];
   newsTitle: string | null;

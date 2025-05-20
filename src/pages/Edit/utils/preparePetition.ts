@@ -33,14 +33,11 @@ export async function preparePetition({
       )
     ).forEach((file, i) => {
       if (file) {
-        formData.append(`Images[${i}].File`, file, images[i].name);
+        formData.append(`Images[${i}].File`, file, images[i].name || 'image');
       } else {
         formData.append(`Images[${i}].Uuid`, images[i].id!);
       }
-      formData.append(
-        `Images[${i}].Caption`,
-        images[i].name.length ? images[i].name : 'null' // backend doesn't accept empty captions
-      );
+      formData.append(`Images[${i}].Caption`, images[i].name);
       formData.append(`Images[${i}].Order`, `${i + 1}`);
     });
   } else {

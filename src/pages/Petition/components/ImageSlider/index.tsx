@@ -41,7 +41,7 @@ function Slider({ items }: Props) {
               src={item.image}
               alt={item.name}
             />
-            {item.name !== '' && item.name !== 'null' && (
+            {item.name.length && (
               <div className={styles['slide-name']}>{item.name}</div>
             )}
             <button

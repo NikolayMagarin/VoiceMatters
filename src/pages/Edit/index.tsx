@@ -47,7 +47,7 @@ function Edit() {
             petition.images
               .sort((a, b) => a.order - b.order)
               .map((image) => ({
-                name: image.caption,
+                name: image.caption || '',
                 image: imageUrl(image.uuid),
                 id: image.uuid,
               }))
