@@ -19,8 +19,6 @@ export async function preparePetition({
     tags.forEach((tag, i) => {
       formData.append(`Tags[${i}]`, tag);
     });
-  } else {
-    formData.append('Tags', '[]');
   }
 
   if (images.length) {
