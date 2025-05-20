@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   font-size: 25px;
+  gap: 5px;
 }
 
 .right-part {
@@ -29,11 +30,13 @@
 
 .btn {
   text-decoration: none;
-  padding: 20px 56px;
+  padding: 20px 80px;
   background-color: #d9d9d9;
   border-radius: 25px;
   height: max-content;
   color: black;
+
+  transition: background-color 200ms;
 }
 
 .btn:hover {

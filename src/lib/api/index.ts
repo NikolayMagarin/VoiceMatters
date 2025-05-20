@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { config } from '../../config';
 import Cookies from 'js-cookie';
-import { SearchPetitionsParams } from './types';
+import { SearchNewsParams, SearchPetitionsParams } from './types';
 
 const defaultTransforms = axios.defaults.transformRequest
   ? Array.isArray(axios.defaults.transformRequest)
@@ -135,4 +135,38 @@ export const apiPath = {
   updateNews: 'api/news',
   deleteNews: (id: string) => `api/news/${id}`,
   getUser: (id: string) => `api/users/${id}`,
+  getStats: 'api/stats',
+  searchNews: (params: SearchNewsParams) => {
+    const query = new URLSearchParams({
+      PageNumber: params.pageNumber.toString(),
+      PageSize: params.pageSize.toString(),
+    });
+
+    if (params.title) {
+      query.set('SearchPhrase', params.title);
+    }
+
+    switch (params.sort.type) {
+      case 'date':
+        query.set(
+          'SortByCompleteDate',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+      case 'signs':
+        query.set(
+          'SortBySignQuantity',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+      case 'signsToday':
+        query.set(
+          'SortBySignQuantityPerDay',
+          params.sort.descending ? 'Descending' : 'Ascending'
+        );
+        break;
+    }
+
+    return `api/news?${query}`;
+  },
 };

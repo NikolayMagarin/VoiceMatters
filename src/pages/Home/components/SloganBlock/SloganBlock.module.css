@@ -11,7 +11,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
+  justify-content: space-around;
 }
 
 .right-part {
@@ -22,7 +23,9 @@
 }
 
 .slogan-main-text {
+  flex: 1;
   font-size: 60px;
+  height: 240px;
 }
 
 .statistics {
@@ -37,6 +40,12 @@
   gap: 20px;
 }
 
+.statistic-value {
+  font-size: 22px;
+  font-weight: 500;
+}
+
 .image {
-  width: calc(100% - 80px);
+  height: 500px;
+  width: 500px;
 }

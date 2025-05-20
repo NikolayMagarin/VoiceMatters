@@ -4,7 +4,7 @@ import SearchPetitions from './pages/SearchPetitions';
 import Create from './pages/Create';
 import Login from './pages/Login';
 import User from './pages/User';
-import News from './pages/News';
+import Home from './pages/Home';
 import Petition from './pages/Petition';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className={styles.App}>
       <Routes>
-        <Route path='/' element={<News />} />
+        <Route path='/' element={<Home />} />
         <Route path='/create' element={<Create />} />
         <Route path='/edit/:id' element={<Edit />} />
         <Route path='/petitions' element={<SearchPetitions />} />

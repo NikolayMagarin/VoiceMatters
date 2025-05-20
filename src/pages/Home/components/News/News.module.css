@@ -1,0 +1,77 @@
+.line {
+  margin: 25px 55px 50px 55px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 65px;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.reverse .right-part {
+  padding: 20px 20px 20px 0;
+}
+
+.left-part {
+  width: 60%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  gap: 5px;
+}
+
+.right-part {
+  width: 40%;
+  padding: 20px 0 20px 20px;
+  justify-content: center;
+}
+
+.name {
+  font-size: 40px;
+}
+
+.image {
+  aspect-ratio: 1.67;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  background-color: #e4ecec;
+
+  box-sizing: border-box;
+  border: 1px solid #e4ecec;
+}
+
+.signs {
+  color: grey;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(96, 96, 96);
+  font-size: 16px;
+
+  height: 25px;
+  padding: 2px 12px;
+
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #f1f1f1;
+
+  cursor: pointer;
+}
+
+.link:hover {
+  background-color: #f4f4f4;
+}

@@ -99,14 +99,12 @@ export interface CreateNewsResponse {
   id: string;
   title: string;
   petitionId: string;
-  petitionImages: [
-    {
-      id: string;
-      uuid: string;
-      caption: string;
-      order: number;
-    }
-  ];
+  petitionImages: {
+    id: string;
+    uuid: string;
+    caption: string;
+    order: number;
+  }[];
   petitionTags: [
     {
       id: string;
@@ -118,3 +116,35 @@ export interface CreateNewsResponse {
 }
 
 export type UpdateNewsResponse = CreateNewsResponse;
+
+export interface GetStatsResponse {
+  id: string;
+  userQuantity: number;
+  petitionQuantity: number;
+  signsQuantity: number;
+}
+
+export type StatsMessage =
+  | StatsMessageWithQuantity
+  | StatsMessageWithoutQuantity;
+
+export interface StatsMessageWithoutQuantity {
+  Method: 'PetitionCreated' | 'PetitionSigned' | 'UserRegistered';
+}
+
+export interface StatsMessageWithQuantity {
+  Method: 'PetitionDeleted';
+  Quantity: number;
+}
+
+export interface SearchNewsParams {
+  title: string;
+  sort: {
+    type: 'signs' | 'signsToday' | 'date';
+    descending: boolean;
+  };
+  pageNumber: number;
+  pageSize: number;
+}
+
+export type SearchNewsResponse = CreateNewsResponse[];
