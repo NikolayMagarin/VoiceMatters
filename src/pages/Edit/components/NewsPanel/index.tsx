@@ -19,7 +19,8 @@ interface Props {
 
 function NewsPanel({ petition }: Props) {
   const [newsTitle, setNewsTitle] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const onTitleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => setNewsTitle(e.target.value),
@@ -27,8 +28,9 @@ function NewsPanel({ petition }: Props) {
   );
 
   const closeModal = useCallback(() => {
-    setShowModal(false);
-  }, [setShowModal]);
+    setShowCompleteModal(false);
+    setShowDeleteModal(false);
+  }, [setShowCompleteModal, setShowDeleteModal]);
 
   const navigate = useNavigate();
 
@@ -48,6 +50,26 @@ function NewsPanel({ petition }: Props) {
       onError: () => {},
     }
   );
+
+  const deletePetitionMutation = useMutation<AxiosResponse, any, string>(
+    (id) => {
+      return api.delete(apiPath.deletePetition(id));
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['petition', petition.id]);
+
+        navigate('/');
+      },
+      onError: () => {},
+    }
+  );
+
+  const deletePetition = useCallback(() => {
+    closeModal();
+    toast.info('Петиция удалена');
+    deletePetitionMutation.mutate(petition.id);
+  }, [closeModal, petition.id, deletePetitionMutation]);
 
   const createNewsMutation = useMutation<
     AxiosResponse<CreateNewsResponse>,
@@ -115,9 +137,9 @@ function NewsPanel({ petition }: Props) {
   );
 
   const completePetition = useCallback(() => {
-    setShowModal(false);
+    closeModal();
     completePetitionMutation.mutate(petition.id);
-  }, [completePetitionMutation, petition.id]);
+  }, [closeModal, completePetitionMutation, petition.id]);
 
   const createOrUpdateNews = useCallback(
     (title: string) => {
@@ -143,7 +165,7 @@ function NewsPanel({ petition }: Props) {
     <div className={styles['wrapper']}>
       <div className={styles['label']}>Управление петициией</div>
       <button
-        onClick={() => setShowModal(true)}
+        onClick={() => setShowCompleteModal(true)}
         className={styles['btn']}
         disabled={petition.isCompleted}
       >
@@ -190,7 +212,13 @@ function NewsPanel({ petition }: Props) {
           </div>
         </>
       )}
-      {showModal && (
+      <button
+        onClick={() => setShowDeleteModal(true)}
+        className={styles['btn']}
+      >
+        Удалить петицию
+      </button>
+      {showCompleteModal && (
         <Modal
           title='Вы уверены, что хотите завершить петицию?'
           onClose={closeModal}
@@ -206,6 +234,25 @@ function NewsPanel({ petition }: Props) {
             </button>
             <button className={styles['btn']} onClick={completePetition}>
               Завершить петициию
+            </button>
+          </div>
+        </Modal>
+      )}
+      {showDeleteModal && (
+        <Modal
+          title='Вы уверены, что хотите удалить петицию?'
+          onClose={closeModal}
+        >
+          <div style={{ lineHeight: '10px' }}>
+            <p>Петиция станет недоступна вам и другим пользователям</p>
+            <p>Петицию нельзя восстановить</p>
+          </div>
+          <div className={styles['news-btns-wrapper']}>
+            <button className={styles['btn']} onClick={closeModal}>
+              Отмена
+            </button>
+            <button className={styles['btn']} onClick={deletePetition}>
+              Удалить петициию
             </button>
           </div>
         </Modal>

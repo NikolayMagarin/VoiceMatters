@@ -131,6 +131,7 @@ export const apiPath = {
   },
   updatePetiton: 'api/petitions',
   completePetiton: (id: string) => `api/petitions/${id}/complete`,
+  deletePetition: (id: string) => `api/petitions/${id}`,
   createNews: 'api/news',
   updateNews: 'api/news',
   deleteNews: (id: string) => `api/news/${id}`,
