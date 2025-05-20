@@ -14,6 +14,7 @@ const DEFAULT_SEARCH_PARAMS: FilterParams = {
   userId: '',
   tagIds: [],
   completed: 'default',
+  blocked: false,
   sort: {
     type: 'signsToday',
     descending: true, // сначала популярные сегодня

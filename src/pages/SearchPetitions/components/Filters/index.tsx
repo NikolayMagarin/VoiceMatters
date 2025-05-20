@@ -3,6 +3,7 @@ import Tags from '../Tags';
 import styles from './Filters.module.css';
 import cs from 'classnames';
 import { useDebounceCallback } from 'usehooks-ts';
+import { useAuth } from '../../../../lib/auth';
 
 type SortType = 'signs' | 'signsToday' | 'date';
 
@@ -38,6 +39,7 @@ export interface FilterParams {
   userId: string;
   tagIds: string[];
   completed: 'include' | 'exclude' | 'default';
+  blocked: boolean;
   sort: {
     type: SortType;
     descending: boolean;
@@ -50,6 +52,9 @@ interface Props {
 }
 
 function Filters({ params, onChange }: Props) {
+  const {
+    user: { role: userRole },
+  } = useAuth();
   const [showAdditionalFilters, setShowAdditionalFilters] = useState(false);
   const [showSortOptions, setShowSortOptions] = useState(false);
 
@@ -65,6 +70,11 @@ function Filters({ params, onChange }: Props) {
     },
     [params, onChange]
   );
+
+  const handleIncludeBlocked = useCallback(() => {
+    params.blocked = !params.blocked;
+    onChange({ ...params });
+  }, [params, onChange]);
 
   const handleTagAppend = useCallback(
     (tagId: string) => {
@@ -120,9 +130,9 @@ function Filters({ params, onChange }: Props) {
           onClick={() => setShowAdditionalFilters(!showAdditionalFilters)}
         >
           {showAdditionalFilters ? 'Скрыть фильтры' : 'Показать фильтры'}
-          {(!!params.tagIds.length || params.completed !== 'default') && (
-            <> &bull;</>
-          )}
+          {(!!params.tagIds.length ||
+            params.completed !== 'default' ||
+            params.blocked) && <> &bull;</>}
         </button>
 
         <button
@@ -161,9 +171,9 @@ function Filters({ params, onChange }: Props) {
           showAdditionalFilters || styles.closed
         )}
       >
-        <div className={styles['include-completed-btns']}>
+        <div className={styles['include-btns']}>
           <div
-            className={cs(styles['include-completed-btn'], {
+            className={cs(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'include',
             })}
             onClick={() => handleIncludeCompleted('exclude')}
@@ -179,7 +189,7 @@ function Filters({ params, onChange }: Props) {
             Показывать активные петиции
           </div>
           <div
-            className={cs(styles['include-completed-btn'], {
+            className={cs(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'exclude',
             })}
             onClick={() => handleIncludeCompleted('include')}
@@ -195,7 +205,24 @@ function Filters({ params, onChange }: Props) {
             Показывать завершенные петиции
           </div>
         </div>
-
+        {userRole === 'admin' && (
+          <div
+            className={cs(styles['include-btn'], {
+              [styles['checked']]: params.completed !== 'exclude',
+            })}
+            onClick={handleIncludeBlocked}
+          >
+            <img
+              src={
+                params.blocked
+                  ? '/assets/images/checkbox-checked.svg'
+                  : '/assets/images/checkbox-empty.svg'
+              }
+              alt=''
+            />{' '}
+            Показывать заблокированные петиции
+          </div>
+        )}
         <Tags onAppend={handleTagAppend} onDelete={handleTagDelete} />
       </div>
     </div>

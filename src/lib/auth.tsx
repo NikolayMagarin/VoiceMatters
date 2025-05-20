@@ -13,12 +13,14 @@ import { api, apiPath } from './api';
 import { GetUserResponse } from './api/types';
 
 type AuthStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
+type UserRole = 'user' | 'admin';
 
 interface UserState {
   id: string;
   firstName: string;
   lastName: string;
   profileImgUrl: string;
+  role: UserRole;
 }
 
 interface AuthState {
@@ -34,6 +36,7 @@ const initialState: AuthState = {
     firstName: '',
     lastName: '',
     profileImgUrl: '',
+    role: 'user',
   },
   token: null,
   isAuthenticated: false,
@@ -41,9 +44,9 @@ const initialState: AuthState = {
 };
 
 type AuthProviderValue = AuthState & {
-  login: (user: AuthState['user'], token: string) => void;
+  login: (user: UserState, token: string) => void;
   logout: () => void;
-  updateUser: (user: AuthState['user']) => void;
+  updateUser: (user: UserState) => void;
   setAuthenticationStatus: (status: AuthStatus) => void;
 };
 
@@ -56,10 +59,35 @@ const defaultAuthProviderValue = {
 };
 const AuthContext = createContext<AuthProviderValue>(defaultAuthProviderValue);
 
-const authReducer = (
-  state: AuthState,
-  action: { type: 'login' | 'logout' | 'updateUser' | 'status'; payload?: any }
-): AuthState => {
+interface ActionLogin {
+  type: 'login';
+  payload: {
+    user: UserState;
+    token: string;
+  };
+}
+
+interface ActionLogout {
+  type: 'logout';
+}
+
+interface ActionUpdateUser {
+  type: 'updateUser';
+  payload: {
+    user: UserState;
+  };
+}
+
+interface ActionStatus {
+  type: 'status';
+  payload: {
+    status: AuthStatus;
+  };
+}
+
+type Action = ActionLogin | ActionLogout | ActionUpdateUser | ActionStatus;
+
+const authReducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case 'login': {
       return {
@@ -93,7 +121,7 @@ const authReducer = (
 const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = useCallback((user: AuthState['user'], token: string) => {
+  const login = useCallback((user: UserState, token: string) => {
     dispatch({
       type: 'login',
       payload: {
@@ -116,6 +144,7 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
             profileImgUrl: response.data.imageUuid
               ? imageUrl(response.data.imageUuid)
               : '/assets/images/user-icon.svg',
+            role: response.data.role.name.toLowerCase() as UserRole,
           },
           token
         );
@@ -132,7 +161,7 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
     });
   }, []);
 
-  const updateUser = useCallback((user: AuthState['user']) => {
+  const updateUser = useCallback((user: UserState) => {
     dispatch({
       type: 'updateUser',
       payload: {

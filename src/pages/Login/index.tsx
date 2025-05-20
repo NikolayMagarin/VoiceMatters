@@ -53,6 +53,7 @@ function Login() {
             profileImgUrl: userData.imageUuid
               ? imageUrl(userData.imageUuid)
               : '/assets/images/user-icon.svg',
+            role: userData.role.name.toLowerCase() as 'user' | 'admin',
           },
           accessToken
         );

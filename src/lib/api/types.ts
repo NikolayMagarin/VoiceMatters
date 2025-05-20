@@ -21,6 +21,10 @@ export interface GetUserResponse {
   petitionsCreated: number;
   petitionsSigned: number;
   createdDate: string;
+  role: {
+    id: string;
+    name: 'User' | 'Admin';
+  };
 }
 
 export type GetTagsResponse = { id: string; name: string }[];
@@ -51,7 +55,7 @@ export interface GetPetitionResponse {
     firstName: string;
     lastName: string;
     sex: 'Male' | 'Female' | null;
-    imageUuid: string;
+    imageUuid: string | null;
     isBlocked: boolean;
   };
   createdDate: string;
@@ -74,6 +78,7 @@ export interface SearchPetitionsParams {
   userId: string;
   tagIds: string[];
   completed: 'include' | 'exclude' | 'default';
+  blocked: boolean;
   sort: {
     type: 'signs' | 'signsToday' | 'date';
     descending: boolean;

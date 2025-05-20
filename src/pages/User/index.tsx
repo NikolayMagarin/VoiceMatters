@@ -1,17 +1,21 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import { api, apiPath } from '../../lib/api';
 import { GetUserResponse } from '../../lib/api/types';
+import { useAuth } from '../../lib/auth';
 import { imageUrl } from '../../utils/imageUrl';
 import SearchPetitions from './components/SearchPetitions';
 import styles from './User.module.css';
 
 function User() {
   const userId = useParams<'id'>().id!;
+  const {
+    user: { role: userRole },
+  } = useAuth();
 
-  const { data: user } = useQuery(
+  const { data: user, refetch } = useQuery(
     ['tagSuggestions', userId],
     ({ queryKey: [_, id] }) => api.get<GetUserResponse>(apiPath.getUser(id)),
     {
@@ -37,6 +41,18 @@ function User() {
     [user]
   );
 
+  const handleBlock = useCallback(() => {
+    if (user!.isBlocked) {
+      api.put(apiPath.unblockUser(user!.id)).then(() => {
+        refetch();
+      });
+    } else {
+      api.put(apiPath.blockUser(user!.id)).then(() => {
+        refetch();
+      });
+    }
+  }, [user, refetch]);
+
   return (
     <>
       <Header />
@@ -59,6 +75,16 @@ function User() {
                   <div className={styles['name']}>
                     {user.firstName} {user.lastName}
                   </div>
+                  {userRole === 'admin' && (
+                    <button
+                      className={styles['block-btn']}
+                      onClick={handleBlock}
+                    >
+                      {user.isBlocked
+                        ? 'Разблокировать пользователя'
+                        : 'Заблокировать пользователя'}
+                    </button>
+                  )}
                 </div>
               </div>
               <div className={styles['personals-container']}>

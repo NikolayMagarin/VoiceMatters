@@ -115,6 +115,30 @@
   margin-bottom: 20px;
 }
 
+.left-block {
+  text-align: center;
+}
+
+.block-btn {
+  min-height: 30px;
+  padding: 0px 10px;
+
+  background-color: #fff9f9;
+  border-radius: 10px;
+  border: 1px solid #fff1f1;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  margin: 10px 0;
+
+  cursor: pointer;
+}
+
+.block-btn:hover {
+  background-color: #fff4f4;
+}
+
 @media (max-width: 1024px) {
   .avatar {
     width: 150px;

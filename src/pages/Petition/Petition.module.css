@@ -95,6 +95,33 @@
   border-radius: 15px;
 }
 
+.petition-top-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.block-btn {
+  height: 30px;
+  padding: 0px 10px;
+
+  background-color: #fff9f9;
+  border-radius: 10px;
+  border: 1px solid #fff1f1;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.block-btn:hover {
+  background-color: #fff4f4;
+}
+
 .creator-wrapper {
   margin: 0px 15px;
 

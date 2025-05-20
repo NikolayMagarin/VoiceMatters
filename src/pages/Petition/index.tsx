@@ -66,6 +66,18 @@ function Petition() {
     }
   }, [petitionId, isAuthenticated, navigate, refetch]);
 
+  const handleBlock = useCallback(() => {
+    if (petition!.isBlocked) {
+      api.put(apiPath.unblockPetition(petitionId)).then(() => {
+        refetch();
+      });
+    } else {
+      api.put(apiPath.blockPetition(petitionId)).then(() => {
+        refetch();
+      });
+    }
+  }, [petition, petitionId, refetch]);
+
   return (
     <>
       <Header />
@@ -114,13 +126,29 @@ function Petition() {
               </div>
             </div>
             <div className={styles['petition-data']}>
-              <Link
-                to={`/user/${user.id}`}
-                className={styles['creator-wrapper']}
-              >
-                <img src={imageUrl(petition.creator.imageUuid)} alt='' />
-                {`${petition.creator.firstName} ${petition.creator.lastName}`}
-              </Link>
+              <div className={styles['petition-top-bar']}>
+                <Link
+                  to={`/user/${user.id}`}
+                  className={styles['creator-wrapper']}
+                >
+                  <img
+                    src={
+                      petition.creator.imageUuid
+                        ? imageUrl(petition.creator.imageUuid)
+                        : '/assets/images/user-icon.svg'
+                    }
+                    alt=''
+                  />
+                  {`${petition.creator.firstName} ${petition.creator.lastName}`}
+                </Link>
+                {user.role === 'admin' && (
+                  <button className={styles['block-btn']} onClick={handleBlock}>
+                    {petition.isBlocked
+                      ? 'Разблокировать петицию'
+                      : 'Заблокировать петицию'}
+                  </button>
+                )}
+              </div>
               <Editor
                 readOnly
                 contentState={payload}

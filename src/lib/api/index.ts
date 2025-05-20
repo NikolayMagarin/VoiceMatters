@@ -50,7 +50,7 @@ export const apiPath = {
 
     return `/api/tags?${query}`;
   },
-  getPetition: (id: string) => `api/petitions/${id}`,
+  getPetition: (id: string) => `api/petitions/${id}?allowBlocked=true`,
   signPetition: (id: string) => `api/petitions/${id}/sign`,
   getPetitionUsers: (
     petitionId: string,
@@ -80,6 +80,10 @@ export const apiPath = {
         'IncludeCompleted',
         params.completed === 'include' ? 'Enable' : 'Disable'
       );
+    }
+
+    if (params.blocked) {
+      query.set('AllowBlocked', 'true');
     }
 
     switch (params.sort.type) {
@@ -117,15 +121,15 @@ export const apiPath = {
     pageSize: number = 10,
     pageNumber: number = 1
   ) => {
-    if (!searchPhrase) {
-      return '/api/users';
-    }
-
     const query = new URLSearchParams({
-      SearchPhrase: searchPhrase,
       PageNumber: pageNumber.toString(),
       PageSize: pageSize.toString(),
+      AllowBlocked: 'true',
     });
+
+    if (searchPhrase) {
+      query.set('SearchPhrase', searchPhrase);
+    }
 
     return `/api/users?${query}`;
   },
@@ -135,7 +139,7 @@ export const apiPath = {
   createNews: 'api/news',
   updateNews: 'api/news',
   deleteNews: (id: string) => `api/news/${id}`,
-  getUser: (id: string) => `api/users/${id}`,
+  getUser: (id: string) => `api/users/${id}?allowBlocked=true`,
   getStats: 'api/stats',
   searchNews: (params: SearchNewsParams) => {
     const query = new URLSearchParams({
@@ -169,5 +173,33 @@ export const apiPath = {
     }
 
     return `api/news?${query}`;
+  },
+  blockPetition: (id: string) => {
+    const query = new URLSearchParams({
+      Id: id,
+    });
+
+    return `api/admin/block-petition?${query}`;
+  },
+  unblockPetition: (id: string) => {
+    const query = new URLSearchParams({
+      Id: id,
+    });
+
+    return `api/admin/unblock-petition?${query}`;
+  },
+  blockUser: (id: string) => {
+    const query = new URLSearchParams({
+      Id: id,
+    });
+
+    return `api/admin/block-user?${query}`;
+  },
+  unblockUser: (id: string) => {
+    const query = new URLSearchParams({
+      Id: id,
+    });
+
+    return `api/admin/unblock-user?${query}`;
   },
 };

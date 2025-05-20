@@ -62,14 +62,14 @@
   display: none;
 }
 
-.include-completed-btns {
+.include-btns {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.include-completed-btn {
+.include-btn {
   font-size: 16px;
 
   width: max-content;
@@ -84,11 +84,11 @@
   cursor: pointer;
 }
 
-.include-completed-btn.checked {
+.include-btn.checked {
   border: 1px solid #e4e4e4;
 }
 
-.include-completed-btn:hover {
+.include-btn:hover {
   background-color: #fcfcfc;
 }
 

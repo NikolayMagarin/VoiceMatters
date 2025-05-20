@@ -70,6 +70,7 @@ function Register() {
             profileImgUrl: userData.imageUuid
               ? imageUrl(userData.imageUuid)
               : '/assets/images/user-icon.svg',
+            role: userData.role.name.toLowerCase() as 'user' | 'admin',
           },
           accessToken
         );
@@ -82,7 +83,7 @@ function Register() {
         setAuthenticationStatus('failed');
       }
     },
-    [login, navigate, setAuthenticationStatus]
+    [login, navigate, setAuthenticationStatus, imagePreview]
   );
 
   const handleLogout = useCallback(() => {
