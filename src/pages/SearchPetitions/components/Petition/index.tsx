@@ -5,12 +5,18 @@ import styles from './Petition.module.css';
 import { Link } from 'react-router-dom';
 import { RawDraftContentState } from 'draft-js';
 import { plural } from '../../../../utils/plural';
+import cs from 'classnames';
+import { useAuth } from '../../../../lib/auth';
 
 interface Props {
   petition: GetPetitionResponse;
 }
 
 function Petition({ petition }: Props) {
+  const {
+    user: { role: userRole },
+  } = useAuth();
+
   const imageSrc = useMemo(() => {
     if (petition.images.length) {
       return imageUrl(
@@ -43,13 +49,28 @@ function Petition({ petition }: Props) {
         <div className={styles.title}>{petition.title}</div>
         <div className={styles.text}>{textPayload}</div>
         <div className={styles['metadata']}>
-          <div className={styles['signs']}>
-            {petition.signQuantity}{' '}
-            {plural(petition.signQuantity, 'подпись', 'подписи', 'подписей')}
+          <div className={styles['metadata-labels']}>
+            {petition.signedByCurrentUser && (
+              <div className={styles['metadata-label']}>Вы подписали</div>
+            )}
+            {petition.isCompleted && (
+              <div className={styles['metadata-label']}>Завершена</div>
+            )}
+            {petition.isBlocked && userRole === 'admin' && (
+              <div className={cs(styles['metadata-label'], styles['blocked'])}>
+                Заблокирована
+              </div>
+            )}
           </div>
-          <div className={styles['date']}>
-            Опубликовано{' '}
-            {new Date(petition.createdDate).toLocaleDateString('ru')}
+          <div className={styles['metadata-info']}>
+            <div className={styles['signs']}>
+              {petition.signQuantity}{' '}
+              {plural(petition.signQuantity, 'подпись', 'подписи', 'подписей')}
+            </div>
+            <div className={styles['date']}>
+              Опубликовано{' '}
+              {new Date(petition.createdDate).toLocaleDateString('ru')}
+            </div>
           </div>
         </div>
       </div>

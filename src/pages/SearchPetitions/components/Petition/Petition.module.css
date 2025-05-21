@@ -93,13 +93,37 @@
 .metadata {
   position: absolute;
   bottom: 0;
-
   width: 100%;
+}
 
+.metadata-info {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.metadata-labels:not(:empty) {
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+}
+
+.metadata-label {
+  background-color: #ececec;
+  border-radius: 10px;
+  padding: 1px 10px;
+  width: fit-content;
+
+  font-size: 14px;
+  color: grey;
+}
+
+.metadata-label.blocked {
+  background-color: #fff9f9;
+  border: 1px solid #ececec;
 }
 
 .signs {

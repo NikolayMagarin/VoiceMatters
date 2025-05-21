@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { RawDraftContentState } from 'draft-js';
 import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
