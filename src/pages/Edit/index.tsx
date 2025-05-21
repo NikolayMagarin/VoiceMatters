@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { RawDraftContentState } from 'draft-js';
-import { ChangeEventHandler, useCallback, useState } from 'react';
+import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { api, apiPath } from '../../lib/api';
@@ -30,6 +30,7 @@ function Edit() {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState<ImageItem[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const toastId = useRef<ToastId>();
 
   const { data: petition } = useQuery(
     ['petition', petitionId],
@@ -78,12 +79,10 @@ function Edit() {
         queryClient.invalidateQueries(['petition', response.data.id]);
 
         navigate('.');
-
-        toast.dismiss();
         toast.info('Изменения сохранены');
+        toast.dismiss(toastId.current);
       },
       onError: () => {
-        toast.dismiss();
         toast.error('Произошла ошибка при редактировании петиции');
       },
     }
@@ -102,7 +101,7 @@ function Edit() {
       return;
     }
 
-    toast.loading('Сохраняем изменения');
+    toastId.current = toast.loading('Сохраняем изменения');
 
     mutation.mutate(
       await preparePetition({ id: petitionId, ...validation.result })

@@ -49,7 +49,7 @@ function Petition() {
         .sort((a, b) => a.order - b.order)
         .map((item) => ({
           image: imageUrl(item.uuid),
-          name: item.caption,
+          name: item.caption || '',
         })) || [],
     [petition]
   ) as Array<any>;

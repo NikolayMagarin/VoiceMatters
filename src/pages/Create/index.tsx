@@ -3,7 +3,13 @@ import Header from '../../components/Header';
 import Editor from './components/Editor';
 import Slider from './components/Slider';
 import Tags from './components/Tags';
-import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { RawDraftContentState } from 'draft-js';
 import { useLocalStorage } from 'usehooks-ts';
 import styles from './Create.module.css';
@@ -15,7 +21,7 @@ import { AxiosResponse } from 'axios';
 import { validatePetition } from './utils/validatePetition';
 import { preparePetition } from './utils/preparePetition';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
 import { useAuth } from '../../lib/auth';
 
 function Create() {
@@ -24,6 +30,7 @@ function Create() {
     entityMap: {},
   });
   const [title, setTitle] = useLocalStorage('_vm_petitionCreateStateTitle', '');
+  const toastId = useRef<ToastId>();
 
   const onTitleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => setTitle(e.target.value),
@@ -50,10 +57,10 @@ function Create() {
         localStorage.removeItem('_vm_petitionCreateStateText');
         localStorage.removeItem('_vm_petitionCreateStateTitle');
 
+        toast.dismiss(toastId.current);
         navigate('/petition/' + response.data.id);
       },
       onError: () => {
-        toast.dismiss();
         toast.error('Произошла ошибка при создании петиции');
       },
     }
@@ -76,7 +83,7 @@ function Create() {
       return;
     }
 
-    toast.loading('Создаём петицию');
+    toastId.current = toast.loading('Создаём петицию');
 
     mutation.mutate(await preparePetition(validation.result));
   }, [title, payload, mutation]);
