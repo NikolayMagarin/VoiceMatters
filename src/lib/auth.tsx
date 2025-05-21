@@ -132,12 +132,16 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
   }, []);
 
   const token = Cookies.get(config.cookie.accessToken);
-  if (token && !state.user.firstName) {
-    api
-      .get<GetUserResponse>(apiPath.getMyUser)
-      .then((response) => {
-        login(
-          {
+  if (token) {
+    state.token = token;
+    state.isAuthenticated = true;
+    state.status = 'succeeded';
+
+    if (!state.user.firstName) {
+      api
+        .get<GetUserResponse>(apiPath.getMyUser)
+        .then((response) => {
+          updateUser({
             id: response.data.id,
             firstName: response.data.firstName,
             lastName: response.data.lastName,
@@ -145,14 +149,13 @@ const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
               ? imageUrl(response.data.imageUuid)
               : '/assets/images/user-icon.svg',
             role: response.data.role.name.toLowerCase() as UserRole,
-          },
-          token
-        );
-      })
-      .catch(() => {
-        Cookies.remove(config.cookie.accessToken);
-        Cookies.remove(config.cookie.refreshToken);
-      });
+          });
+        })
+        .catch(() => {
+          Cookies.remove(config.cookie.accessToken);
+          Cookies.remove(config.cookie.refreshToken);
+        });
+    }
   }
 
   const logout = useCallback(() => {
