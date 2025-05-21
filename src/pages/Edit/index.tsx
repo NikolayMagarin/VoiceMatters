@@ -32,7 +32,7 @@ function Edit() {
   const [tags, setTags] = useState<string[]>([]);
   const toastId = useRef<ToastId>();
 
-  const { data: petition } = useQuery(
+  const { data: petition, refetch } = useQuery(
     ['petition', petitionId],
     () => {
       return api.get<GetPetitionResponse>(apiPath.getPetition(petitionId));
@@ -63,8 +63,6 @@ function Edit() {
     [setTitle]
   );
 
-  const navigate = useNavigate();
-
   const queryClient = useQueryClient();
   const mutation = useMutation<
     AxiosResponse<UpdatePetitionResponse>,
@@ -78,7 +76,7 @@ function Edit() {
       onSuccess: (response) => {
         queryClient.invalidateQueries(['petition', response.data.id]);
 
-        navigate('.');
+        refetch();
         toast.info('Изменения сохранены');
         toast.dismiss(toastId.current);
       },
@@ -115,7 +113,7 @@ function Edit() {
         <ToastContainer style={{ fontSize: 16 }} />
         {petition && (
           <>
-            <NewsPanel petition={petition} />
+            <NewsPanel petition={petition} onUpdate={refetch} />
             <div className={styles['editor-wrapper']}>
               <div className={styles['editor-label']}>
                 Редактирование петиции

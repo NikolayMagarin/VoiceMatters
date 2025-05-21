@@ -15,9 +15,10 @@ import styles from './NewsPanel.module.css';
 
 interface Props {
   petition: GetPetitionResponse;
+  onUpdate: () => void;
 }
 
-function NewsPanel({ petition }: Props) {
+function NewsPanel({ petition, onUpdate }: Props) {
   const [newsTitle, setNewsTitle] = useState('');
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -43,8 +44,7 @@ function NewsPanel({ petition }: Props) {
       onSuccess: () => {
         queryClient.invalidateQueries(['petition', petition.id]);
 
-        navigate('.');
-
+        onUpdate();
         toast.info('Петиция завершена');
       },
       onError: () => {},
@@ -57,9 +57,8 @@ function NewsPanel({ petition }: Props) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['petition', petition.id]);
-
         navigate('/');
+        queryClient.removeQueries(['petition', petition.id]);
       },
       onError: () => {},
     }
@@ -87,8 +86,7 @@ function NewsPanel({ petition }: Props) {
         queryClient.invalidateQueries(['petition', response.data.petitionId]);
         queryClient.invalidateQueries(['news', response.data.id]);
 
-        navigate('.');
-
+        onUpdate();
         toast.info('Новость опубликована');
       },
       onError: () => {},
@@ -111,8 +109,7 @@ function NewsPanel({ petition }: Props) {
         queryClient.invalidateQueries(['petition', response.data.petitionId]);
         queryClient.invalidateQueries(['news', response.data.id]);
 
-        navigate('.');
-
+        onUpdate();
         toast.info('Новость обновлена');
       },
       onError: () => {},
@@ -128,8 +125,7 @@ function NewsPanel({ petition }: Props) {
         queryClient.invalidateQueries(['petition', petition.id]);
         queryClient.invalidateQueries(['news', petition.newsId]);
 
-        navigate('.');
-
+        onUpdate();
         toast.info('Новость удалена');
       },
       onError: () => {},
