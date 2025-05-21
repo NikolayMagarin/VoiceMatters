@@ -78,6 +78,17 @@ function Petition() {
     }
   }, [petition, petitionId, refetch]);
 
+  const signButtonText = useMemo(() => {
+    if (petition?.isBlocked) {
+      return 'Заблокирована';
+    } else if (petition?.isCompleted) {
+      return 'Завершена';
+    } else if (petition?.signedByCurrentUser) {
+      return 'Вы подписали';
+    }
+    return 'Подписать';
+  }, [petition]);
+
   return (
     <>
       <Header />
@@ -113,14 +124,20 @@ function Petition() {
                 ) : (
                   <button
                     className={styles['sign-btn']}
-                    disabled={petition.signedByCurrentUser}
+                    disabled={
+                      petition.signedByCurrentUser ||
+                      petition.isCompleted ||
+                      petition.isBlocked
+                    }
                     onClick={
-                      petition.signedByCurrentUser ? undefined : handleSign
+                      petition.signedByCurrentUser ||
+                      petition.isCompleted ||
+                      petition.isBlocked
+                        ? undefined
+                        : handleSign
                     }
                   >
-                    {petition.signedByCurrentUser
-                      ? 'Вы подписали'
-                      : 'Подписать'}
+                    {signButtonText}
                   </button>
                 )}
               </div>
