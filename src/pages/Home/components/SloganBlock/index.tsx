@@ -1,6 +1,6 @@
 import styles from './SloganBlock.module.css';
-import { useState } from 'react';
-import useWebSocket from 'react-use-websocket';
+import { useState, useEffect } from 'react';
+import * as signalR from '@microsoft/signalr';
 import { config } from '../../../../config';
 import { GetStatsResponse, StatsMessage } from '../../../../lib/api/types';
 import { useQuery } from 'react-query';
@@ -43,38 +43,50 @@ function SloganBlock() {
     }
   );
 
-  const { sendMessage } = useWebSocket(config.wssUrl, {
-    disableJson: true,
-    shouldReconnect: () => true,
-    onOpen() {
-      sendMessage('{"protocol":"json", "version":1}\u001e');
-    },
-    onMessage({ data }: { data: string }) {
-      try {
-        const message = JSON.parse(data.slice(0, -1));
-        if (typeof message !== 'object' || typeof message.target !== 'string') {
-          return;
-        }
+  useEffect(() => {
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl(config.wssUrl)
+      .withAutomaticReconnect()
+      .build();
 
-        const statsMessage: StatsMessage = JSON.parse(message.target);
+    connection.on('ReceiveMessage', (message) => {
+      try {
+        const statsMessage: StatsMessage = JSON.parse(message);
 
         setStats((stats) => {
+          const newStats = { ...stats };
           if (statsMessage.Method === 'PetitionCreated') {
-            stats.petitions++;
+            newStats.petitions++;
           } else if (statsMessage.Method === 'PetitionSigned') {
-            stats.signs++;
+            newStats.signs++;
           } else if (statsMessage.Method === 'UserRegistered') {
-            stats.users++;
+            newStats.users++;
           } else if (statsMessage.Method === 'PetitionDeleted') {
-            stats.petitions--;
-            stats.signs -= statsMessage.Quantity;
+            newStats.petitions--;
+            newStats.signs -= statsMessage.Quantity;
           }
-          return { ...stats };
+          return newStats;
         });
-      } catch {}
-    },
-  });
+      } catch (err) {
+        console.error(err);
+      }
+    });
 
+    const startConnection = async () => {
+      try {
+        await connection.start();
+      } catch (err) {
+        console.error('SignalR Connection Error: ', err);
+        setTimeout(startConnection, 5000);
+      }
+    };
+
+    startConnection();
+
+    return () => {
+      connection.stop();
+    };
+  }, []);
   return (
     <div className={styles['slogan-block']}>
       <div className={styles['left-part']}>
