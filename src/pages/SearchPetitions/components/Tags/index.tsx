@@ -70,7 +70,7 @@ function Tags({ onAppend, onDelete }: Props) {
       updateSearchingTagDebounced.cancel();
       setSearchingTag('');
     },
-    [tags, onAppend, updateSearchingTagDebounced]
+    [tags, onAppend, updateSearchingTagDebounced, setTags]
   );
 
   const onKeyDown = useCallback<React.KeyboardEventHandler<HTMLInputElement>>(

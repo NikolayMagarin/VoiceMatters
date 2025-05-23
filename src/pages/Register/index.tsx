@@ -1,5 +1,12 @@
 import Cookies from 'js-cookie';
-import { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { config } from '../../config';
 import { api, apiPath } from '../../lib/api';
@@ -86,6 +93,8 @@ function Register() {
     [login, navigate, setAuthenticationStatus, imagePreview]
   );
 
+  useEffect(() => {}, []);
+
   const handleLogout = useCallback(() => {
     Cookies.remove(config.cookie.accessToken);
     Cookies.remove(config.cookie.refreshToken);
@@ -93,7 +102,7 @@ function Register() {
   }, [logout]);
 
   const handleGoBack = useCallback(() => {
-    navigate(-1);
+    navigate('/');
   }, [navigate]);
 
   return (
@@ -208,7 +217,7 @@ function Register() {
             <div>Выйти из аккаунта?</div>
             <div className={styles['logined-choises']}>
               <button onClick={handleLogout}>Выйти</button>
-              <button onClick={handleGoBack}>Вернуться</button>
+              <button onClick={handleGoBack}>На главную</button>
             </div>
           </div>
         )}

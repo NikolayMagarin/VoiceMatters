@@ -113,6 +113,28 @@
   font-size: 30px;
   text-align: center;
   margin-bottom: 20px;
+
+  position: relative;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-family: inherit;
+  font-size: 14px;
+  height: 25px;
+  padding: 0px 10px;
+  background-color: #fadede;
+  border-radius: 10px;
+  border: 1px solid #f1f1f1;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #f3d8d8;
 }
 
 .left-block {

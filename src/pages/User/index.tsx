@@ -1,7 +1,9 @@
+import Cookies from 'js-cookie';
 import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import { config } from '../../config';
 import { api, apiPath } from '../../lib/api';
 import { GetUserResponse } from '../../lib/api/types';
 import { useAuth } from '../../lib/auth';
@@ -11,9 +13,7 @@ import styles from './User.module.css';
 
 function User() {
   const userId = useParams<'id'>().id!;
-  const {
-    user: { role: userRole },
-  } = useAuth();
+  const { user: currentUser, logout } = useAuth();
 
   const { data: user, refetch } = useQuery(
     ['tagSuggestions', userId],
@@ -26,7 +26,6 @@ function User() {
   const personals = useMemo(
     () =>
       user &&
-      // prettier-ignore -
       Object.entries({
         'Полное имя': `${user.firstName} ${user.lastName}`,
         Email: user.email,
@@ -53,11 +52,27 @@ function User() {
     }
   }, [user, refetch]);
 
+  const navigate = useNavigate();
+
+  const handleLogout = useCallback(() => {
+    Cookies.remove(config.cookie.accessToken);
+    Cookies.remove(config.cookie.refreshToken);
+    logout();
+    navigate('/login');
+  }, [logout, navigate]);
+
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <div className={styles['block-title']}>Профиль пользователя</div>
+        <div className={styles['block-title']}>
+          Профиль пользователя{' '}
+          {currentUser.id === user?.id && (
+            <button className={styles['logout-btn']} onClick={handleLogout}>
+              Выйти из аккаунта
+            </button>
+          )}
+        </div>
         {user && (
           <>
             <div className={styles['info']}>
@@ -75,7 +90,7 @@ function User() {
                   <div className={styles['name']}>
                     {user.firstName} {user.lastName}
                   </div>
-                  {userRole === 'admin' && (
+                  {currentUser.role === 'admin' && (
                     <button
                       className={styles['block-btn']}
                       onClick={handleBlock}

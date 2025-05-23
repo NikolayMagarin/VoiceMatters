@@ -86,7 +86,7 @@ function Login() {
   }, [logout]);
 
   const handleGoBack = useCallback(() => {
-    navigate(-1);
+    navigate('/');
   }, [navigate]);
 
   return (
@@ -138,7 +138,7 @@ function Login() {
             <div>Выйти из аккаунта?</div>
             <div className={styles['logined-choises']}>
               <button onClick={handleLogout}>Выйти</button>
-              <button onClick={handleGoBack}>Вернуться</button>
+              <button onClick={handleGoBack}>На главную</button>
             </div>
           </div>
         )}

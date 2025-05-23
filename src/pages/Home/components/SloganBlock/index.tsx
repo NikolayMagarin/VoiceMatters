@@ -46,6 +46,7 @@ function SloganBlock() {
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(config.wssUrl)
+      .configureLogging(signalR.LogLevel.None)
       .withAutomaticReconnect()
       .build();
 

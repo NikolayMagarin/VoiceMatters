@@ -119,7 +119,7 @@ const authReducer = (state: AuthState, action: Action): AuthState => {
 };
 
 const AuthProvider = ({ children }: React.ProviderProps<AuthProviderValue>) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, { ...initialState });
 
   const login = useCallback((user: UserState, token: string) => {
     dispatch({
