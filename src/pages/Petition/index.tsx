@@ -4,7 +4,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
-import { api, apiPath } from '../../lib/api';
+import { api } from '../../lib/api';
 import { GetPetitionResponse } from '../../lib/api/types';
 import { expand } from '../../utils/draft-js-compact';
 import styles from './Petition.module.css';
@@ -15,6 +15,7 @@ import { useAuth } from '../../lib/auth';
 import Footer from '../../components/Footer';
 import cs from 'classnames';
 import UsersSigned from './components/UsersSigned';
+import { apiPath } from '../../lib/api/apiPath';
 
 const TOOLBAR_OPTIONS = {
   options: [],

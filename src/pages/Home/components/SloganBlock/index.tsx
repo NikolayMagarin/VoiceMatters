@@ -4,9 +4,10 @@ import * as signalR from '@microsoft/signalr';
 import { config } from '../../../../config';
 import { GetStatsResponse, StatsMessage } from '../../../../lib/api/types';
 import { useQuery } from 'react-query';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
 import NumberFlow from '@number-flow/react';
 import SloganRotator from './components/SloganRotator';
+import { apiPath } from '../../../../lib/api/apiPath';
 
 const NUMBERFLOW_PROPS = {
   format: {

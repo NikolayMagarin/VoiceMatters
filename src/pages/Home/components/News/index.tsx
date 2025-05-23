@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
+import { apiPath } from '../../../../lib/api/apiPath';
 import { SearchNewsResponse } from '../../../../lib/api/types';
 import { imageUrl } from '../../../../utils/imageUrl';
 import { plural } from '../../../../utils/plural';

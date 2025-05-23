@@ -9,7 +9,8 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { config } from '../../config';
-import { api, apiPath } from '../../lib/api';
+import { api } from '../../lib/api';
+import { apiPath } from '../../lib/api/apiPath';
 import type { GetUserResponse, RegisterResponse } from '../../lib/api/types';
 import { useAuth } from '../../lib/auth';
 import { imageUrl } from '../../utils/imageUrl';

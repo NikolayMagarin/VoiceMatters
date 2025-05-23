@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
+import { apiPath } from '../../../../lib/api/apiPath';
 import { GetPetitionUsersResponse } from '../../../../lib/api/types';
 import { imageUrl } from '../../../../utils/imageUrl';
 import styles from './UsersSigned.module.css';

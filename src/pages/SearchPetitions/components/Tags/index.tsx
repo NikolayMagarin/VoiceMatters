@@ -1,11 +1,12 @@
 import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDebounceCallback, useSessionStorage } from 'usehooks-ts';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
 import { GetTagsResponse } from '../../../../lib/api/types';
 import Suggestions from './components/Suggestions';
 import styles from './Tags.module.css';
 import cs from 'classnames';
+import { apiPath } from '../../../../lib/api/apiPath';
 
 interface Props {
   onAppend: (tagId: string) => void;

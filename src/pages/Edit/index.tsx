@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { api, apiPath } from '../../lib/api';
+import { api } from '../../lib/api';
 import {
   GetPetitionResponse,
   UpdatePetitionResponse,
@@ -20,6 +20,7 @@ import Tags from './components/Tags';
 import styles from './Edit.module.css';
 import { imageUrl } from '../../utils/imageUrl';
 import NewsPanel from './components/NewsPanel';
+import { apiPath } from '../../lib/api/apiPath';
 
 function Edit() {
   const petitionId = useParams<'id'>().id!;

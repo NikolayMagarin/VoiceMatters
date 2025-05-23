@@ -14,7 +14,7 @@ import { RawDraftContentState } from 'draft-js';
 import { useLocalStorage } from 'usehooks-ts';
 import styles from './Create.module.css';
 import { compress } from '../../utils/draft-js-compact';
-import { api, apiPath } from '../../lib/api';
+import { api } from '../../lib/api';
 import { CreatePetitionResponse } from '../../lib/api/types';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosResponse } from 'axios';
@@ -23,6 +23,7 @@ import { preparePetition } from './utils/preparePetition';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
 import { useAuth } from '../../lib/auth';
+import { apiPath } from '../../lib/api/apiPath';
 
 function Create() {
   const [payload, setPayload] = useState<RawDraftContentState>({

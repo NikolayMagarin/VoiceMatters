@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useSessionStorage } from 'usehooks-ts';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
+import { apiPath } from '../../../../lib/api/apiPath';
 import { SearchPetitionsResponse } from '../../../../lib/api/types';
 import Filters, {
   FilterParams,

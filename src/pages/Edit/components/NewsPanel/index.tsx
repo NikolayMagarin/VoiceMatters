@@ -4,7 +4,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Modal from '../../../../components/Modal';
-import { api, apiPath } from '../../../../lib/api';
+import { api } from '../../../../lib/api';
+import { apiPath } from '../../../../lib/api/apiPath';
 import {
   CreateNewsResponse,
   GetPetitionResponse,

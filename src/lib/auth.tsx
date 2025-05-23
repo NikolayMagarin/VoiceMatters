@@ -9,7 +9,8 @@ import {
 } from 'react';
 import { config } from '../config';
 import { imageUrl } from '../utils/imageUrl';
-import { api, apiPath } from './api';
+import { api } from './api';
+import { apiPath } from './api/apiPath';
 import { GetUserResponse } from './api/types';
 
 type AuthStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
