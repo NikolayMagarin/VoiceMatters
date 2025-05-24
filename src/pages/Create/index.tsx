@@ -15,7 +15,7 @@ import { AxiosResponse } from 'axios';
 import { validatePetition } from './utils/validatePetition';
 import { preparePetition } from './utils/preparePetition';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
+import { toast, type Id as ToastId } from 'react-toastify';
 import { useAuth } from '../../lib/auth';
 import { apiPath } from '../../lib/api/apiPath';
 
@@ -53,11 +53,10 @@ function Create() {
         localStorage.removeItem('_vm_petitionCreateStateText');
         localStorage.removeItem('_vm_petitionCreateStateTitle');
 
-        toast.dismiss(toastId.current);
         navigate('/petition/' + response.data.id);
       },
-      onError: () => {
-        toast.error('Произошла ошибка при создании петиции');
+      onSettled() {
+        toast.dismiss(toastId.current);
       },
     }
   );
@@ -92,7 +91,6 @@ function Create() {
     <>
       <Header navigated='create' />
       <main className={styles.main}>
-        <ToastContainer style={{ fontSize: 16 }} />
         <div className={styles['editor-wrapper']}>
           <input
             placeholder='Заголовок вашей петиции'

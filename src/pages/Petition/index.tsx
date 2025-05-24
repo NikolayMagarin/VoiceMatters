@@ -16,6 +16,8 @@ import Footer from '../../components/Footer';
 import cs from 'classnames';
 import UsersSigned from './components/UsersSigned';
 import { apiPath } from '../../lib/api/apiPath';
+import { NotFoundError, ValidationError } from '../../lib/api/errors';
+import NotFound from '../NotFound';
 
 const TOOLBAR_OPTIONS = {
   options: [],
@@ -29,7 +31,12 @@ function Petition() {
 
   const { isAuthenticated, user } = useAuth();
 
-  const { data: petition, refetch } = useQuery(
+  const {
+    data: petition,
+    refetch,
+    isError,
+    error,
+  } = useQuery(
     ['petition', petitionId],
     () => {
       return api.get<GetPetitionResponse>(apiPath.getPetition(petitionId));
@@ -89,6 +96,13 @@ function Petition() {
     }
     return 'Подписать';
   }, [petition]);
+
+  if (
+    isError &&
+    (error instanceof NotFoundError || error instanceof ValidationError)
+  ) {
+    return <NotFound text='Упс, такой петиции не существует' />;
+  }
 
   return (
     <>

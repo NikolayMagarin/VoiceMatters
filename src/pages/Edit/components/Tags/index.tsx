@@ -7,6 +7,7 @@ import Suggestions from './components/Suggestions';
 import styles from './Tags.module.css';
 import cs from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
+import { toast } from 'react-toastify';
 
 interface Props {
   tags: string[];
@@ -59,10 +60,10 @@ function Tags({ tags, onTagsChange, disabled }: Props) {
             tags.concat([value.charAt(0).toUpperCase() + value.slice(1)])
           );
         } else {
-          alert('Тег слишком длинный');
+          toast.error('Тег слишком длинный');
         }
       } else {
-        alert('Такой тег уже добавлен');
+        toast.info('Такой тег уже добавлен');
       }
 
       setSearchingTag('');

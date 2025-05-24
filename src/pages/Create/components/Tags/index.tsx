@@ -7,6 +7,7 @@ import Suggestions from './components/Suggestions';
 import styles from './Tags.module.css';
 import cs from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
+import { toast } from 'react-toastify';
 
 function Tags() {
   const [searchingTag, setSearchingTag] = useState('');
@@ -50,17 +51,16 @@ function Tags() {
 
   const onOptionChoose = useCallback<(value: string) => void>(
     (value) => {
-      // value = value.trim();
       if (!chosenTags.includes(value)) {
         if (value.length <= 30) {
           setChosenTags(
             chosenTags.concat([value.charAt(0).toUpperCase() + value.slice(1)])
           );
         } else {
-          alert('Тег слишком длинный');
+          toast.error('Тег слишком длинный');
         }
       } else {
-        alert('Такой тег уже добавлен');
+        toast.info('Такой тег уже добавлен');
       }
 
       setSearchingTag('');

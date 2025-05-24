@@ -4,11 +4,15 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './lib/auth';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+import { retryPolicy } from './lib/api/errors';
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: retryPolicy,
+    },
+  },
 });
 
 const root = ReactDOM.createRoot(
@@ -18,11 +22,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <AuthProvider>
     <QueryClientProvider client={queryClient}>
-      <AlertProvider template={AlertTemplate} timeout={5000}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AlertProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </QueryClientProvider>
   </AuthProvider>
 );

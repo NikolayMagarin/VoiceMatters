@@ -48,7 +48,6 @@ function NewsPanel({ petition, onUpdate }: Props) {
         onUpdate();
         toast.info('Петиция завершена');
       },
-      onError: () => {},
     }
   );
 
@@ -58,16 +57,15 @@ function NewsPanel({ petition, onUpdate }: Props) {
     },
     {
       onSuccess: () => {
+        toast.info('Петиция удалена');
         navigate('/');
         queryClient.removeQueries(['petition', petition.id]);
       },
-      onError: () => {},
     }
   );
 
   const deletePetition = useCallback(() => {
     closeModal();
-    toast.info('Петиция удалена');
     deletePetitionMutation.mutate(petition.id);
   }, [closeModal, petition.id, deletePetitionMutation]);
 
@@ -90,7 +88,6 @@ function NewsPanel({ petition, onUpdate }: Props) {
         onUpdate();
         toast.info('Новость опубликована');
       },
-      onError: () => {},
     }
   );
 
@@ -113,7 +110,6 @@ function NewsPanel({ petition, onUpdate }: Props) {
         onUpdate();
         toast.info('Новость обновлена');
       },
-      onError: () => {},
     }
   );
 
@@ -129,7 +125,6 @@ function NewsPanel({ petition, onUpdate }: Props) {
         onUpdate();
         toast.info('Новость удалена');
       },
-      onError: () => {},
     }
   );
 
@@ -141,7 +136,7 @@ function NewsPanel({ petition, onUpdate }: Props) {
   const createOrUpdateNews = useCallback(
     (title: string) => {
       if (title.length < 10 || title.length > 200) {
-        toast.error('Введите заголовок новости от 10 до 200 символов');
+        toast.error('Заголовок новости должен содержать от 10 до 200 символов');
         return;
       }
 

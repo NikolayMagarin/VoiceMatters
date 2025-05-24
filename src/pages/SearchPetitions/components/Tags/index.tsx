@@ -7,6 +7,7 @@ import Suggestions from './components/Suggestions';
 import styles from './Tags.module.css';
 import cs from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
+import { toast } from 'react-toastify';
 
 interface Props {
   onAppend: (tagId: string) => void;
@@ -64,7 +65,7 @@ function Tags({ onAppend, onDelete }: Props) {
           setTags(tags);
         }
       } else {
-        alert('Такой тег уже добавлен');
+        toast.error('Такой тег уже добавлен');
       }
 
       inputRef.current!.value = '';

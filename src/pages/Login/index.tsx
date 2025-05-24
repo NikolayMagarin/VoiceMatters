@@ -17,17 +17,20 @@ function Login() {
 
       const data = new FormData(formRef.current!);
 
-      const loginResponse = await api.post<LoginResponse>(apiPath.login, {
-        email: data.get('Email')?.toString(),
-        password: data.get('Password')?.toString(),
-      });
-      const { accessToken, refreshToken } = loginResponse.data;
+      try {
+        const {
+          data: { accessToken, refreshToken },
+        } = await api.post<LoginResponse>(apiPath.login, {
+          email: data.get('Email')?.toString(),
+          password: data.get('Password')?.toString(),
+        });
 
-      saveCookies({ accessToken, refreshToken });
-      login(null, accessToken);
-      fetchUser();
+        saveCookies({ accessToken, refreshToken });
+        login(null, accessToken);
+        fetchUser();
 
-      navigate('/');
+        navigate('/');
+      } catch {}
     },
     [login, navigate, fetchUser]
   );

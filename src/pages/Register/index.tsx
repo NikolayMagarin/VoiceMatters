@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
 import type { RegisterResponse } from '../../lib/api/types';
@@ -36,7 +37,7 @@ function Register() {
       e.preventDefault();
       const validated = validateFormData(new FormData(formRef.current!));
       if (validated.error) {
-        alert(validated.error);
+        toast.error(validated.error);
         return;
       }
 
@@ -56,9 +57,7 @@ function Register() {
         URL.revokeObjectURL(imagePreview);
 
         navigate('/');
-      } catch (error) {
-        console.error(error);
-      }
+      } catch {}
     },
     [login, navigate, imagePreview, fetchUser]
   );

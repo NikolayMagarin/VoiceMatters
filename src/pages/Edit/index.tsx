@@ -3,7 +3,7 @@ import { RawDraftContentState } from 'draft-js';
 import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { toast, ToastContainer, type Id as ToastId } from 'react-toastify';
+import { toast, type Id as ToastId } from 'react-toastify';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { api } from '../../lib/api';
@@ -21,6 +21,8 @@ import styles from './Edit.module.css';
 import { imageUrl } from '../../utils/imageUrl';
 import NewsPanel from './components/NewsPanel';
 import { apiPath } from '../../lib/api/apiPath';
+import { NotFoundError, ValidationError } from '../../lib/api/errors';
+import NotFound from '../NotFound';
 
 function Edit() {
   const petitionId = useParams<'id'>().id!;
@@ -33,7 +35,12 @@ function Edit() {
   const [tags, setTags] = useState<string[]>([]);
   const toastId = useRef<ToastId>();
 
-  const { data: petition, refetch } = useQuery(
+  const {
+    data: petition,
+    refetch,
+    isError,
+    error,
+  } = useQuery(
     ['petition', petitionId],
     () => {
       return api.get<GetPetitionResponse>(apiPath.getPetition(petitionId));
@@ -79,10 +86,10 @@ function Edit() {
 
         refetch();
         toast.info('Изменения сохранены');
-        toast.dismiss(toastId.current);
       },
-      onError: () => {
-        toast.error('Произошла ошибка при редактировании петиции');
+
+      onSettled() {
+        toast.dismiss(toastId.current);
       },
     }
   );
@@ -107,11 +114,17 @@ function Edit() {
     );
   }, [images, mutation, payload, tags, title, petitionId]);
 
+  if (
+    isError &&
+    (error instanceof NotFoundError || error instanceof ValidationError)
+  ) {
+    return <NotFound text='Упс, такой петиции не существует' />;
+  }
+
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <ToastContainer style={{ fontSize: 16 }} />
         {petition && (
           <>
             <NewsPanel petition={petition} onUpdate={refetch} />

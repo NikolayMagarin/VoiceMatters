@@ -4,9 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
+import { NotFoundError, ValidationError } from '../../lib/api/errors';
 import { GetUserResponse } from '../../lib/api/types';
 import { useAuth } from '../../lib/auth';
 import { imageUrl } from '../../utils/imageUrl';
+import NotFound from '../NotFound';
 import SearchPetitions from './components/SearchPetitions';
 import styles from './User.module.css';
 
@@ -14,7 +16,12 @@ function User() {
   const userId = useParams<'id'>().id!;
   const { user: currentUser, logout } = useAuth();
 
-  const { data: user, refetch } = useQuery(
+  const {
+    data: user,
+    refetch,
+    isError,
+    error,
+  } = useQuery(
     ['tagSuggestions', userId],
     ({ queryKey: [_, id] }) => api.get<GetUserResponse>(apiPath.getUser(id)),
     {
@@ -57,6 +64,13 @@ function User() {
     logout();
     navigate('/login');
   }, [logout, navigate]);
+
+  if (
+    isError &&
+    (error instanceof NotFoundError || error instanceof ValidationError)
+  ) {
+    return <NotFound text='Упс, такого пользователя не существует' />;
+  }
 
   return (
     <>

@@ -10,10 +10,13 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import SearchUsers from './pages/SearchUsers';
 import Edit from './pages/Edit';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className={styles.App}>
+      <ToastContainer style={{ fontSize: 16 }} />
+
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<Create />} />
