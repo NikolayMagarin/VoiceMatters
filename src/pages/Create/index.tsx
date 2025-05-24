@@ -3,13 +3,7 @@ import Header from '../../components/Header';
 import Editor from './components/Editor';
 import Slider from './components/Slider';
 import Tags from './components/Tags';
-import {
-  ChangeEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
 import { RawDraftContentState } from 'draft-js';
 import { useLocalStorage } from 'usehooks-ts';
 import styles from './Create.module.css';
@@ -32,6 +26,7 @@ function Create() {
   });
   const [title, setTitle] = useLocalStorage('_vm_petitionCreateStateTitle', '');
   const toastId = useRef<ToastId>();
+  const { isAuthenticated } = useAuth();
 
   const onTitleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => setTitle(e.target.value),
@@ -68,6 +63,10 @@ function Create() {
   );
 
   const createPetition = useCallback(async () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+
     const validation = validatePetition({
       title: title.trim(),
       payload: JSON.stringify(compress(payload)),
@@ -87,14 +86,7 @@ function Create() {
     toastId.current = toast.loading('Создаём петицию');
 
     mutation.mutate(await preparePetition(validation.result));
-  }, [title, payload, mutation]);
-
-  const { isAuthenticated } = useAuth();
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login', { replace: true });
-    }
-  }, [isAuthenticated, navigate]);
+  }, [title, payload, mutation, isAuthenticated, navigate]);
 
   return (
     <>

@@ -52,9 +52,7 @@ interface Props {
 }
 
 function Filters({ params, onChange }: Props) {
-  const {
-    user: { role: userRole },
-  } = useAuth();
+  const { user } = useAuth();
   const [showAdditionalFilters, setShowAdditionalFilters] = useState(false);
   const [showSortOptions, setShowSortOptions] = useState(false);
 
@@ -205,7 +203,7 @@ function Filters({ params, onChange }: Props) {
             Показывать завершенные петиции
           </div>
         </div>
-        {userRole === 'admin' && (
+        {user?.role === 'admin' && (
           <div
             className={cs(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'exclude',

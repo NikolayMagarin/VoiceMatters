@@ -3,7 +3,7 @@ import { SearchNewsParams, SearchPetitionsParams } from './types';
 export const apiPath = {
   register: '/api/auth/register',
   login: '/api/auth/signin',
-  refreshToken: '/api/auth/refresh-token',
+  accessToken: '/api/auth/access-token',
   getMyUser: '/api/users/me',
   createPetition: '/api/petitions',
   getTags: (

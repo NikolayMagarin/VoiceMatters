@@ -1,9 +1,7 @@
-import Cookies from 'js-cookie';
 import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
-import { config } from '../../config';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
 import { GetUserResponse } from '../../lib/api/types';
@@ -56,8 +54,6 @@ function User() {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
-    Cookies.remove(config.cookie.accessToken);
-    Cookies.remove(config.cookie.refreshToken);
     logout();
     navigate('/login');
   }, [logout, navigate]);
@@ -68,13 +64,13 @@ function User() {
       <main className={styles.main}>
         <div className={styles['block-title']}>
           Профиль пользователя{' '}
-          {currentUser.id === user?.id && (
+          {!!currentUser && currentUser.id === user?.id && (
             <button className={styles['logout-btn']} onClick={handleLogout}>
               Выйти из аккаунта
             </button>
           )}
         </div>
-        {user && (
+        {!!user && (
           <>
             <div className={styles['info']}>
               <div className={styles['left-block']}>
@@ -91,7 +87,7 @@ function User() {
                   <div className={styles['name']}>
                     {user.firstName} {user.lastName}
                   </div>
-                  {currentUser.role === 'admin' && (
+                  {!!currentUser && currentUser.role === 'admin' && (
                     <button
                       className={styles['block-btn']}
                       onClick={handleBlock}

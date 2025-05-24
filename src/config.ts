@@ -5,6 +5,7 @@ interface Config {
   cookie: {
     accessToken: string;
     refreshToken: string;
+    accessTokenExpires: string;
   };
 }
 
@@ -16,5 +17,6 @@ export const config: Config = {
   cookie: {
     accessToken: '_vm_at',
     refreshToken: '_vm_rt',
+    accessTokenExpires: '_vm_at_ttl',
   },
 };

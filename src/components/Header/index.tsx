@@ -72,7 +72,7 @@ function Header({
         </Link>
       )}
 
-      {isAuthenticated && (
+      {isAuthenticated && !!user && (
         <Link
           to={`/user/${user.id}`}
           className={`${styles.link} ${styles['account-area']}`}

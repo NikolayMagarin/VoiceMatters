@@ -13,9 +13,7 @@ interface Props {
 }
 
 function Petition({ petition }: Props) {
-  const {
-    user: { role: userRole },
-  } = useAuth();
+  const { user } = useAuth();
 
   const imageSrc = useMemo(() => {
     if (petition.images.length) {
@@ -56,7 +54,7 @@ function Petition({ petition }: Props) {
             {petition.isCompleted && (
               <div className={styles['metadata-label']}>Завершена</div>
             )}
-            {petition.isBlocked && userRole === 'admin' && (
+            {petition.isBlocked && user?.role === 'admin' && (
               <div className={cs(styles['metadata-label'], styles['blocked'])}>
                 Заблокирована
               </div>

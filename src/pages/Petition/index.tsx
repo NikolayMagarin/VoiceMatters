@@ -115,7 +115,7 @@ function Petition() {
                   value={petition.signQuantity}
                   valuePerDay={petition.signQuantityPerDay}
                 />
-                {petition.creator.id === user.id ? (
+                {petition.creator.id === user?.id ? (
                   <Link
                     to={`/edit/${petitionId}`}
                     className={cs(styles['sign-btn'], styles['edit-btn'])}
@@ -146,7 +146,7 @@ function Petition() {
             <div className={styles['petition-data']}>
               <div className={styles['petition-top-bar']}>
                 <Link
-                  to={`/user/${user.id}`}
+                  to={`/user/${petition.creator.id}`}
                   className={styles['creator-wrapper']}
                 >
                   <img
@@ -159,7 +159,7 @@ function Petition() {
                   />
                   {`${petition.creator.firstName} ${petition.creator.lastName}`}
                 </Link>
-                {user.role === 'admin' && (
+                {user?.role === 'admin' && (
                   <button className={styles['block-btn']} onClick={handleBlock}>
                     {petition.isBlocked
                       ? 'Разблокировать петицию'

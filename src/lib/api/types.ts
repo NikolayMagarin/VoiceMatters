@@ -8,6 +8,8 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
+export type GetAccessTokenResonse = string;
+
 export interface GetUserResponse {
   id: string;
   firstName: string;
