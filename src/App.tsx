@@ -11,12 +11,13 @@ import NotFound from './pages/NotFound';
 import SearchUsers from './pages/SearchUsers';
 import Edit from './pages/Edit';
 import { ToastContainer } from 'react-toastify';
+import ScrollToTop from './utils/scrollToTop';
 
 function App() {
   return (
     <div className={styles.App}>
       <ToastContainer style={{ fontSize: 16 }} />
-
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<Create />} />
