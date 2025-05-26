@@ -63,7 +63,8 @@ function Create() {
 
   const createPetition = useCallback(async () => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate('/login', { state: { redirect: '/create' } });
+      return;
     }
 
     const validation = validatePetition({

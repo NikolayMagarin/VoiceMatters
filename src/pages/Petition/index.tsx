@@ -70,7 +70,7 @@ function Petition() {
         refetch();
       });
     } else {
-      navigate('/login');
+      navigate('/login', { state: { redirect: '/petition/' + petitionId } });
     }
   }, [petitionId, isAuthenticated, navigate, refetch]);
 

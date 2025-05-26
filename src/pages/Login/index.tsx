@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
 import { LoginResponse } from '../../lib/api/types';
@@ -11,6 +11,7 @@ function Login() {
   const { login, isAuthenticated, user, logout, fetchUser } = useAuth();
   const navigate = useNavigate();
   const [submitStarted, setSubmitStarted] = useState(false);
+  const redirectUrl = useLocation()?.state?.redirect;
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent) => {
@@ -31,12 +32,16 @@ function Login() {
         login(null, accessToken);
         fetchUser();
 
-        navigate('/');
+        if (typeof redirectUrl === 'string') {
+          navigate(redirectUrl);
+        } else {
+          navigate('/');
+        }
       } catch {
         setSubmitStarted(false);
       }
     },
-    [login, navigate, fetchUser]
+    [login, navigate, fetchUser, redirectUrl]
   );
 
   const handleGoBack = useCallback(() => {
@@ -84,7 +89,13 @@ function Login() {
             </button>
 
             <div>
-              Нет аккаунта? <Link to='/register'>Зарегистрироваться</Link>
+              Нет аккаунта?{' '}
+              <Link
+                to='/register'
+                {...(redirectUrl ? { state: { redirect: redirectUrl } } : {})}
+              >
+                Зарегистрироваться
+              </Link>
             </div>
           </form>
         )}

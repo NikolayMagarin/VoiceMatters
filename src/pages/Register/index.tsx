@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
@@ -21,6 +21,7 @@ function Register() {
   const { login, isAuthenticated, user, logout, fetchUser } = useAuth();
   const navigate = useNavigate();
   const [submitStarted, setSubmitStarted] = useState(false);
+  const redirectUrl = useLocation()?.state?.redirect;
 
   const handleImageSelect = useCallback(
     (e: ChangeEvent) => {
@@ -58,12 +59,16 @@ function Register() {
 
         URL.revokeObjectURL(imagePreview);
 
-        navigate('/');
+        if (typeof redirectUrl === 'string') {
+          navigate(redirectUrl);
+        } else {
+          navigate('/');
+        }
       } catch {
         setSubmitStarted(false);
       }
     },
-    [login, navigate, imagePreview, fetchUser]
+    [login, navigate, imagePreview, fetchUser, redirectUrl]
   );
 
   useEffect(() => {}, []);
@@ -179,7 +184,13 @@ function Register() {
               Зарегистрироваться
             </button>
             <div style={{ textAlign: 'center' }}>
-              Уже есть аккаунт? <Link to='/login'>Авторизоваться</Link>
+              Уже есть аккаунт?{' '}
+              <Link
+                to='/login'
+                {...(redirectUrl ? { state: { redirect: redirectUrl } } : {})}
+              >
+                Авторизоваться
+              </Link>
             </div>
           </form>
         )}
