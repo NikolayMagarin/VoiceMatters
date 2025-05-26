@@ -67,6 +67,8 @@ function Login() {
                   className={styles.input}
                   type='email'
                   name='Email'
+                  id='Email'
+                  autoComplete='email'
                   required
                 />
               </div>
@@ -76,6 +78,7 @@ function Login() {
                   className={styles.input}
                   type='password'
                   name='Password'
+                  id='Password'
                   required
                 />
               </div>

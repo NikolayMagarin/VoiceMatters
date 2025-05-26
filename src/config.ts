@@ -7,6 +7,19 @@ interface Config {
     refreshToken: string;
     accessTokenExpires: string;
   };
+  localStorage: {
+    petitionCreateTitle: string;
+    petitionCreateImages: string;
+    petitionCreateTags: string;
+    petitionCreateText: string;
+  };
+  sessionStorage: {
+    petitionSearchParams: string;
+    petitionSearchPage: string;
+    petitionSearchTags: string;
+    userSearchName: string;
+    userSearchPage: string;
+  };
 }
 
 export const config: Config = {
@@ -15,8 +28,21 @@ export const config: Config = {
   wssUrl:
     process.env.REACT_APP_WSS_URL || 'http://localhost:5175/voice-matters-hub/',
   cookie: {
-    accessToken: '_vm_at',
-    refreshToken: '_vm_rt',
-    accessTokenExpires: '_vm_at_ttl',
+    accessToken: 'at',
+    refreshToken: 'rt',
+    accessTokenExpires: 'atttl',
+  },
+  localStorage: {
+    petitionCreateTitle: 'pcti',
+    petitionCreateImages: 'pcim',
+    petitionCreateTags: 'pcta',
+    petitionCreateText: 'pcte',
+  },
+  sessionStorage: {
+    petitionSearchParams: 'pspm',
+    petitionSearchPage: 'pspg',
+    petitionSearchTags: 'pstg',
+    userSearchName: 'usnm',
+    userSearchPage: 'uspg',
   },
 };

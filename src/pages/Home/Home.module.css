@@ -1,5 +1,5 @@
 .head {
-  font-size: 43px;
+  font-size: var(--font-size-x-large);
   padding: 40px 0px;
   text-align: center;
 }

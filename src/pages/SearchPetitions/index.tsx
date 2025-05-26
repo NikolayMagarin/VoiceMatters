@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { useSessionStorage } from 'usehooks-ts';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import { config } from '../../config';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
 import { SearchPetitionsResponse } from '../../lib/api/types';
@@ -26,11 +27,11 @@ const PAGE_SIZE = 10;
 
 function SearchPetitions() {
   const [searchParams, setSearchParams] = useSessionStorage(
-    '_vm_searchPetitionsParams',
+    config.sessionStorage.petitionSearchParams,
     DEFAULT_SEARCH_PARAMS
   );
   const [pageNumber, setPageNumber] = useSessionStorage(
-    '_vm_searchPetitionsPageNumber',
+    config.sessionStorage.petitionSearchPage,
     1
   );
   const [lastPageNumber, setLastPageNumber] = useState<number | null>(null);

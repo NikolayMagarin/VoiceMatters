@@ -96,6 +96,7 @@ function Register() {
                   className={styles.input}
                   type='text'
                   name='FirstName'
+                  id='FirstName'
                   required
                 />
               </div>
@@ -105,6 +106,7 @@ function Register() {
                   className={styles.input}
                   type='text'
                   name='LastName'
+                  id='LastName'
                   required
                 />
               </div>
@@ -114,24 +116,43 @@ function Register() {
                   className={styles.input}
                   type='date'
                   name='DateOfBirth'
+                  id='DateOfBirth'
                 />
               </div>
               <div className={styles['input-group']}>
-                <label htmlFor='Sex'>Пол</label>
+                <label>Пол</label>
                 <div className={styles['sex-input-container']}>
                   <div>
-                    <input type='radio' name='Sex' value='Male' />
-                    <label>М</label>
+                    <input
+                      type='radio'
+                      name='Sex'
+                      value='Male'
+                      autoComplete='off'
+                      id='Male'
+                    />
+                    <label htmlFor='Male'>М</label>
                   </div>
                   <div>
-                    <input type='radio' name='Sex' value='Female' />
-                    <label>Ж</label>
+                    <input
+                      type='radio'
+                      name='Sex'
+                      value='Female'
+                      autoComplete='off'
+                      id='Female'
+                    />
+                    <label htmlFor='Female'>Ж</label>
                   </div>
                 </div>
               </div>
               <div className={styles['input-group']}>
                 <label htmlFor='Phone'>Телефон</label>
-                <input className={styles.input} type='tel' name='Phone' />
+                <input
+                  className={styles.input}
+                  type='tel'
+                  name='Phone'
+                  id='Phone'
+                  autoComplete='phone'
+                />
               </div>
               <div className={styles['input-group']}>
                 <label htmlFor='Image'>Изображение профиля</label>
@@ -153,6 +174,7 @@ function Register() {
                     type='file'
                     accept='image/png,image/jpeg'
                     name='Image'
+                    id='Image'
                     onChange={handleImageSelect}
                   />
                 </div>
@@ -163,7 +185,9 @@ function Register() {
                   className={styles.input}
                   type='email'
                   name='Email'
+                  id='Email'
                   required
+                  autoComplete='email'
                 />
               </div>
               <div className={styles['input-group']}>
@@ -172,6 +196,7 @@ function Register() {
                   className={styles.input}
                   type='password'
                   name='Password'
+                  id='Password'
                   required
                 />
               </div>

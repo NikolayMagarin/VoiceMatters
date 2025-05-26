@@ -16,7 +16,7 @@
   padding: 0 20px;
   box-sizing: border-box;
 
-  font-size: 20px;
+  font-size: var(--font-size-medium-large);
 
   margin: 0 auto;
 }
@@ -70,7 +70,7 @@
 }
 
 .include-btn {
-  font-size: 16px;
+  font-size: var(--font-size-medium);
 
   width: max-content;
 
@@ -103,7 +103,7 @@
   min-width: 150px;
 
   font: inherit;
-  font-size: 14px;
+  font-size: var(--font-size-small);
 
   padding: 5px;
 
@@ -153,7 +153,7 @@
   padding: 5px 10px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-size-small);
 }
 
 .sort-options > div:hover {

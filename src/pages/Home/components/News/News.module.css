@@ -36,7 +36,7 @@
 }
 
 .name {
-  font-size: 40px;
+  font-size: var(--font-size-x-large);
 }
 
 .image {
@@ -53,14 +53,14 @@
 
 .signs {
   color: grey;
-  font-size: 20px;
+  font-size: var(--font-size-medium-large);
   margin-bottom: 10px;
 }
 
 .link {
   text-decoration: none;
   color: rgb(96, 96, 96);
-  font-size: 16px;
+  font-size: var(--font-size-medium);
 
   height: 25px;
   padding: 2px 12px;

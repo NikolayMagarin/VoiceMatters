@@ -8,11 +8,12 @@ import styles from './Tags.module.css';
 import cn from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
 import { toast } from 'react-toastify';
+import { config } from '../../../../config';
 
 function Tags() {
   const [searchingTag, setSearchingTag] = useState('');
   const [chosenTags, setChosenTags] = useLocalStorage<string[]>(
-    '_vm_petitionCreateStateTags',
+    config.localStorage.petitionCreateTags,
     []
   );
   const inputRef = useRef<HTMLInputElement>(null);

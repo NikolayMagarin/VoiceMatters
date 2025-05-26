@@ -24,7 +24,7 @@
 
 .slogan-main-text {
   flex: 1;
-  font-size: 60px;
+  font-size: var(--font-size-xx-large);
   height: 240px;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .statistic-value {
-  font-size: 22px;
+  font-size: var(--font-size-large);
   font-weight: 500;
 }
 

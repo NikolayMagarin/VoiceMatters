@@ -8,6 +8,7 @@ import styles from './Tags.module.css';
 import cn from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
 import { toast } from 'react-toastify';
+import { config } from '../../../../config';
 
 interface Props {
   onAppend: (tagId: string) => void;
@@ -17,7 +18,7 @@ interface Props {
 function Tags({ onAppend, onDelete }: Props) {
   const [searchingTag, setSearchingTag] = useState('');
   const [tags, setTags] = useSessionStorage<GetTagsResponse>(
-    '_vm_searchPetitionsTags',
+    config.sessionStorage.petitionSearchTags,
     []
   );
   const inputRef = useRef<HTMLInputElement>(null);
@@ -61,8 +62,7 @@ function Tags({ onAppend, onDelete }: Props) {
       if (!tags.find((tag) => tag.id === newTag.id)) {
         if (newTag) {
           onAppend(newTag.id);
-          tags.push(newTag);
-          setTags(tags);
+          setTags(tags.concat(newTag));
         }
       } else {
         toast.error('Такой тег уже добавлен');

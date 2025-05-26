@@ -9,7 +9,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  font-size: 25px;
+  font-size: var*--font-size-large);
   gap: 5px;
 }
 
@@ -24,7 +24,7 @@
 
 .name {
   padding: 0px 65px 40px 65px;
-  font-size: 40px;
+  font-size: var(--font-size-x-large);
   text-align: center;
 }
 

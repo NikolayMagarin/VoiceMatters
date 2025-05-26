@@ -18,13 +18,17 @@ import { useNavigate } from 'react-router-dom';
 import { toast, type Id as ToastId } from 'react-toastify';
 import { useAuth } from '../../lib/auth';
 import { apiPath } from '../../lib/api/apiPath';
+import { config } from '../../config';
 
 function Create() {
   const [payload, setPayload] = useState<RawDraftContentState>({
     blocks: [],
     entityMap: {},
   });
-  const [title, setTitle] = useLocalStorage('_vm_petitionCreateStateTitle', '');
+  const [title, setTitle] = useLocalStorage(
+    config.localStorage.petitionCreateTitle,
+    ''
+  );
   const toastId = useRef<ToastId>();
   const { isAuthenticated } = useAuth();
 
@@ -48,10 +52,10 @@ function Create() {
       onSuccess: (response) => {
         queryClient.invalidateQueries(['petition', response.data.id]);
 
-        localStorage.removeItem('_vm_petitionCreateStateImages');
-        localStorage.removeItem('_vm_petitionCreateStateTags');
-        localStorage.removeItem('_vm_petitionCreateStateText');
-        localStorage.removeItem('_vm_petitionCreateStateTitle');
+        localStorage.removeItem(config.localStorage.petitionCreateImages);
+        localStorage.removeItem(config.localStorage.petitionCreateTags);
+        localStorage.removeItem(config.localStorage.petitionCreateText);
+        localStorage.removeItem(config.localStorage.petitionCreateTitle);
 
         navigate('/petition/' + response.data.id);
       },
@@ -71,10 +75,10 @@ function Create() {
       title: title.trim(),
       payload: JSON.stringify(compress(payload)),
       images: JSON.parse(
-        localStorage.getItem('_vm_petitionCreateStateImages') || '[]'
+        localStorage.getItem(config.localStorage.petitionCreateImages) || '[]'
       ),
       tags: JSON.parse(
-        localStorage.getItem('_vm_petitionCreateStateTags') || '[]'
+        localStorage.getItem(config.localStorage.petitionCreateTags) || '[]'
       ),
     });
 

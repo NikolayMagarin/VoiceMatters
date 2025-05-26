@@ -44,7 +44,7 @@
 
 .name {
   margin-top: 5px;
-  font-size: 30px;
+  font-size: var(--font-size-larger);
   max-width: 100%;
 
   overflow: hidden;
@@ -112,7 +112,7 @@
 }
 
 .block-title {
-  font-size: 30px;
+  font-size: var(--font-size-larger);
   text-align: center;
   margin-bottom: 20px;
 
@@ -126,7 +126,7 @@
   transform: translateY(-50%);
 
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--font-size-small);
   height: 25px;
   padding: 0px 10px;
   background-color: #fadede;
@@ -152,7 +152,7 @@
   border: 1px solid #fff1f1;
 
   font-family: inherit;
-  font-size: 16px;
+  font-size: var(--font-size-medium);
 
   margin: 10px 0;
 

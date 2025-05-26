@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDebounceCallback, useSessionStorage } from 'usehooks-ts';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import { config } from '../../config';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
 import { SearchUsersResponse } from '../../lib/api/types';
@@ -14,11 +15,11 @@ const PAGE_SIZE = 10;
 
 function SearchUsers() {
   const [searchName, setSearchName] = useSessionStorage(
-    '_vm_searchUsersName',
+    config.sessionStorage.userSearchName,
     ''
   );
   const [pageNumber, setPageNumber] = useSessionStorage(
-    '_vm_searchUsersPageNumber',
+    config.sessionStorage.userSearchPage,
     1
   );
   const [lastPageNumber, setLastPageNumber] = useState<number | null>(null);

@@ -1,10 +1,11 @@
 import { useLocalStorage, useDebounceCallback } from 'usehooks-ts';
 import styles from './Editor.module.css';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Editor } from 'react-draft-wysiwyg';
 import { RawDraftContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { config } from '../../../../config';
 
 const TOOLBAR_OPTIONS = {
   options: ['inline', 'link'],
@@ -26,15 +27,15 @@ interface Props {
 
 function TextEditor({ onChange }: Props) {
   const [toolbarHidden, setToolbarHidden] = useState(true);
-  const [savedState, setSavedState] = useLocalStorage(
-    '_vm_petitionCreateStateText',
-    ''
+  const [savedState, setSavedState] = useLocalStorage<RawDraftContentState>(
+    config.localStorage.petitionCreateText,
+    { blocks: [], entityMap: {} }
   );
 
   // eslint-disable-next-line
   const saveStateDebounced = useCallback(
     useDebounceCallback((state: RawDraftContentState) => {
-      setSavedState(JSON.stringify(state));
+      setSavedState(state);
     }, 1000),
     [setSavedState]
   );
@@ -47,25 +48,17 @@ function TextEditor({ onChange }: Props) {
     [saveStateDebounced, onChange]
   );
 
-  const initialContentState = useMemo(() => {
-    if (savedState) {
-      const parsed = JSON.parse(savedState);
-      return parsed;
-    } else {
-      return undefined;
-    }
-  }, [savedState]);
-
   useEffect(() => {
-    onChange(initialContentState);
-  }, [onChange, initialContentState]);
+    onChange(savedState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Editor
       spellCheck
       stripPastedStyles
       placeholder='Опишите проблему подробнее и предложите решение'
-      contentState={initialContentState}
+      contentState={savedState}
       onContentStateChange={updateContentState}
       toolbar={TOOLBAR_OPTIONS}
       localization={{ locale: 'ru' }}

@@ -8,12 +8,13 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import cn from 'classnames';
+import { config } from '../../../../config';
 
 type Item = { image: string; name: string };
 
 function Slider() {
   const [items, setItems] = useLocalStorage<Item[]>(
-    '_vm_petitionCreateStateImages',
+    config.localStorage.petitionCreateImages,
     []
   );
   const swiperRef = useRef<SwiperRef>();

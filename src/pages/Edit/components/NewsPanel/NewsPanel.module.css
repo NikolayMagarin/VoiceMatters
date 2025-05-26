@@ -15,7 +15,7 @@
 }
 
 .label {
-  font-size: 25px;
+  font-size: var*--font-size-large);
   text-align: center;
   margin-bottom: 10px;
 }
@@ -39,7 +39,7 @@
   padding: 0 20px;
   box-sizing: border-box;
 
-  font-size: 16px;
+  font-size: var(--font-size-medium);
 }
 
 .title-input:focus {
@@ -77,7 +77,7 @@
   box-sizing: border-box;
 
   font: inherit;
-  font-size: 16px;
+  font-size: var(--font-size-medium);
 
   transition: 150ms;
 
