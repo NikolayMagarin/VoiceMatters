@@ -7,7 +7,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
-import cs from 'classnames';
+import cn from 'classnames';
 
 type Item = { image: string; name: string };
 
@@ -69,7 +69,7 @@ function Slider() {
             }}
           />
           <Link
-            className={cs(styles['image-action-btn'], styles['expand-btn'])}
+            className={cn(styles['image-action-btn'], styles['expand-btn'])}
             to={item.image}
             target='_blank'
             rel='noopener noreferrer'
@@ -77,7 +77,7 @@ function Slider() {
             <img src='/assets/images/expand-icon.svg' alt='expand' />
           </Link>
           <button
-            className={cs(styles['image-action-btn'], styles['remove-btn'])}
+            className={cn(styles['image-action-btn'], styles['remove-btn'])}
             onClick={() => {
               const removed = items.splice(i, 1)[0];
               URL.revokeObjectURL(removed.image);

@@ -115,8 +115,8 @@ function User() {
                 </div>
               </div>
               <div className={styles['personals-container']}>
-                {personals?.map(([key, value]) => (
-                  <div className={styles['personal-property']}>
+                {personals?.map(([key, value], i) => (
+                  <div className={styles['personal-property']} key={i}>
                     <span className={styles['personal-property-name']}>
                       {key}
                     </span>{' '}

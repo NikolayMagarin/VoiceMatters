@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import styles from './Slider.module.css';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-import cs from 'classnames';
+import cn from 'classnames';
 import { useCallback } from 'react';
 
 export type ImageItem = { image: string; name: string; id?: string };
@@ -61,7 +61,7 @@ function Slider({ items, onItemsChange, disabled }: Props) {
             disabled={!!disabled}
           />
           <Link
-            className={cs(styles['image-action-btn'], styles['expand-btn'])}
+            className={cn(styles['image-action-btn'], styles['expand-btn'])}
             to={item.image}
             target='_blank'
             rel='noopener noreferrer'
@@ -70,7 +70,7 @@ function Slider({ items, onItemsChange, disabled }: Props) {
           </Link>
           {!disabled && (
             <button
-              className={cs(styles['image-action-btn'], styles['remove-btn'])}
+              className={cn(styles['image-action-btn'], styles['remove-btn'])}
               onClick={() => {
                 const removed = items.splice(i, 1)[0];
                 URL.revokeObjectURL(removed.image);

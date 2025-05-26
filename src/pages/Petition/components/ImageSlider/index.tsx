@@ -4,7 +4,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from './Slider.module.css';
 import { Navigation, Pagination } from 'swiper/modules';
-import cs from 'classnames';
+import cn from 'classnames';
 import { useCallback } from 'react';
 
 type Item = { image: string; name: string };
@@ -45,7 +45,7 @@ function Slider({ items }: Props) {
               <div className={styles['slide-name']}>{item.name}</div>
             )}
             <button
-              className={cs(styles['image-action-btn'], styles['expand-btn'])}
+              className={cn(styles['image-action-btn'], styles['expand-btn'])}
               onClick={openImage(item.image)}
             >
               <img src='/assets/images/expand-icon.svg' alt='expand' />

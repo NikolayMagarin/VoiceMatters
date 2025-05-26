@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback, useState } from 'react';
 import Tags from '../Tags';
 import styles from './Filters.module.css';
-import cs from 'classnames';
+import cn from 'classnames';
 import { useDebounceCallback } from 'usehooks-ts';
 import { useAuth } from '../../../../lib/auth';
 
@@ -164,14 +164,14 @@ function Filters({ params, onChange }: Props) {
       </div>
 
       <div
-        className={cs(
+        className={cn(
           styles['additional-filters'],
           showAdditionalFilters || styles.closed
         )}
       >
         <div className={styles['include-btns']}>
           <div
-            className={cs(styles['include-btn'], {
+            className={cn(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'include',
             })}
             onClick={() => handleIncludeCompleted('exclude')}
@@ -187,7 +187,7 @@ function Filters({ params, onChange }: Props) {
             Показывать активные петиции
           </div>
           <div
-            className={cs(styles['include-btn'], {
+            className={cn(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'exclude',
             })}
             onClick={() => handleIncludeCompleted('include')}
@@ -205,7 +205,7 @@ function Filters({ params, onChange }: Props) {
         </div>
         {user?.role === 'admin' && (
           <div
-            className={cs(styles['include-btn'], {
+            className={cn(styles['include-btn'], {
               [styles['checked']]: params.completed !== 'exclude',
             })}
             onClick={handleIncludeBlocked}

@@ -84,7 +84,11 @@ function SearchUsers() {
           {!isLoading && data?.length === 0 && 'Результатов не найдено'}
           {data?.map((user) => {
             return (
-              <Link className={styles.user} to={'/user/' + user.id}>
+              <Link
+                className={styles.user}
+                to={'/user/' + user.id}
+                key={user.id}
+              >
                 <img
                   className={styles.image}
                   src={

@@ -5,6 +5,7 @@ import { apiPath } from '../../../../lib/api/apiPath';
 import { SearchNewsResponse } from '../../../../lib/api/types';
 import { imageUrl } from '../../../../utils/imageUrl';
 import { plural } from '../../../../utils/plural';
+import cn from 'classnames';
 import styles from './News.module.css';
 
 function News() {
@@ -42,9 +43,7 @@ function News() {
             return (
               <div key={i}>
                 <div
-                  className={
-                    styles.wrapper + (i % 2 === 1 ? ` ${styles.reverse}` : '')
-                  }
+                  className={cn(styles.wrapper, i % 2 === 1 && styles.reverse)}
                 >
                   <div className={styles['left-part']}>
                     <div className={styles.name}>{news.title}</div>

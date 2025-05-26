@@ -5,7 +5,7 @@ import { api } from '../../../../lib/api';
 import { GetTagsResponse } from '../../../../lib/api/types';
 import Suggestions from './components/Suggestions';
 import styles from './Tags.module.css';
-import cs from 'classnames';
+import cn from 'classnames';
 import { apiPath } from '../../../../lib/api/apiPath';
 import { toast } from 'react-toastify';
 
@@ -90,7 +90,7 @@ function Tags({ onAppend, onDelete }: Props) {
       <div className={styles['input-wrapper']}>
         <img
           alt=''
-          className={cs(styles.loader, !isSuggestionsLoading && styles.hidden)}
+          className={cn(styles.loader, !isSuggestionsLoading && styles.hidden)}
           src='/assets/images/loader.svg'
         ></img>
         <input

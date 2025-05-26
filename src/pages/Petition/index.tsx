@@ -13,7 +13,7 @@ import SignsStaticSlider from './components/StaticSlider';
 import { imageUrl } from '../../utils/imageUrl';
 import { useAuth } from '../../lib/auth';
 import Footer from '../../components/Footer';
-import cs from 'classnames';
+import cn from 'classnames';
 import UsersSigned from './components/UsersSigned';
 import { apiPath } from '../../lib/api/apiPath';
 import { NotFoundError, ValidationError } from '../../lib/api/errors';
@@ -132,7 +132,7 @@ function Petition() {
                 {petition.creator.id === user?.id ? (
                   <Link
                     to={`/edit/${petitionId}`}
-                    className={cs(styles['sign-btn'], styles['edit-btn'])}
+                    className={cn(styles['sign-btn'], styles['edit-btn'])}
                   >
                     Редактировать
                   </Link>

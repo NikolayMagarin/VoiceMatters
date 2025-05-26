@@ -5,7 +5,7 @@ import styles from './Petition.module.css';
 import { Link } from 'react-router-dom';
 import { RawDraftContentState } from 'draft-js';
 import { plural } from '../../../../utils/plural';
-import cs from 'classnames';
+import cn from 'classnames';
 import { useAuth } from '../../../../lib/auth';
 
 interface Props {
@@ -55,7 +55,7 @@ function Petition({ petition }: Props) {
               <div className={styles['metadata-label']}>Завершена</div>
             )}
             {petition.isBlocked && user?.role === 'admin' && (
-              <div className={cs(styles['metadata-label'], styles['blocked'])}>
+              <div className={cn(styles['metadata-label'], styles['blocked'])}>
                 Заблокирована
               </div>
             )}

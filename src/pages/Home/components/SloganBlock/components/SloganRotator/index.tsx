@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './SloganRotator.module.css';
-import cs from 'classnames';
+import cn from 'classnames';
 
 const slogans: string[] = [
   'Ваш голос меняет мир',
@@ -52,7 +52,7 @@ function SloganRotator({ time = 10_000 }: Props) {
 
   return (
     <div
-      className={cs(
+      className={cn(
         styles['slogan-container'],
         styles[isVisible ? 'fade-in' : 'fade-out']
       )}

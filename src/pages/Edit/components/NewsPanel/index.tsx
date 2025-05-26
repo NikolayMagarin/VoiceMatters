@@ -12,7 +12,7 @@ import {
   UpdateNewsResponse,
 } from '../../../../lib/api/types';
 import { plural } from '../../../../utils/plural';
-import cs from 'classnames';
+import cn from 'classnames';
 import styles from './NewsPanel.module.css';
 
 interface Props {
@@ -159,7 +159,7 @@ function NewsPanel({ petition, onUpdate }: Props) {
       <div className={styles['label']}>Управление петициией </div>
       <Link
         to={'/petition/' + petition.id}
-        className={cs(styles['btn'], styles['link'])}
+        className={cn(styles['btn'], styles['link'])}
       >
         Перейти к петиции
       </Link>
