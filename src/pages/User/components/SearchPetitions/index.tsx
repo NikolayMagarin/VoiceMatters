@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useSessionStorage } from 'usehooks-ts';
 import { api } from '../../../../lib/api';
 import { apiPath } from '../../../../lib/api/apiPath';
 import { SearchPetitionsResponse } from '../../../../lib/api/types';
@@ -29,15 +28,17 @@ interface Props {
 }
 
 function SearchPetitions({ creatorId }: Props) {
-  const [searchParams, setSearchParams] = useSessionStorage(
-    '_vm_searchUserPetitionsParams',
-    DEFAULT_SEARCH_PARAMS
-  );
-  const [pageNumber, setPageNumber] = useSessionStorage(
-    '_vm_searchUserPetitionsPageNumber',
-    1
-  );
+  const [searchParams, setSearchParams] = useState<FilterParams>(() => ({
+    ...DEFAULT_SEARCH_PARAMS,
+    userId: creatorId,
+  }));
+  const [pageNumber, setPageNumber] = useState(1);
   const [lastPageNumber, setLastPageNumber] = useState<number | null>(null);
+  const filtersRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setSearchParams((params) => ({ ...params, userId: creatorId }));
+  }, [creatorId]);
 
   const { data, isLoading } = useQuery(
     ['searchUserPetitions', searchParams, pageNumber],
@@ -51,7 +52,10 @@ function SearchPetitions({ creatorId }: Props) {
         })
       );
     },
-    { select: ({ data }) => data, keepPreviousData: true, staleTime: 0 }
+    {
+      select: ({ data }) => data,
+      keepPreviousData: true,
+    }
   );
 
   const onParamsChange = useCallback(
@@ -65,7 +69,7 @@ function SearchPetitions({ creatorId }: Props) {
 
   const onPageChange = useCallback(
     (newPageNumber: number) => {
-      window.scrollTo(0, 0);
+      filtersRef.current?.scrollIntoView({ block: 'start' });
       setPageNumber(newPageNumber);
     },
     [setPageNumber]
@@ -83,12 +87,14 @@ function SearchPetitions({ creatorId }: Props) {
 
   return (
     <>
+      <span style={{ visibility: 'hidden' }} ref={filtersRef} />
       <Filters params={searchParams} onChange={onParamsChange} />
       {!!data?.length && (
         <Pagination
           pageNumber={pageNumber}
           lastPageNumber={lastPageNumber}
           onPageChange={onPageChange}
+          disabled={isLoading}
         />
       )}
       <div className={styles.container}>
@@ -102,6 +108,7 @@ function SearchPetitions({ creatorId }: Props) {
           pageNumber={pageNumber}
           lastPageNumber={lastPageNumber}
           onPageChange={onPageChange}
+          disabled={isLoading}
         />
       )}
     </>
@@ -112,20 +119,24 @@ interface PaginationProps {
   pageNumber: number;
   lastPageNumber: number | null;
   onPageChange: (pageNumber: number) => void;
+  disabled?: boolean;
 }
 
 function Pagination({
   pageNumber,
   onPageChange,
   lastPageNumber,
+  disabled = false,
 }: PaginationProps) {
+  if (lastPageNumber === 1) return <></>;
+
   return (
     <div className={styles['page-btns']}>
       <button
         onClick={() => {
           onPageChange(pageNumber - 1);
         }}
-        disabled={pageNumber === 1}
+        disabled={pageNumber === 1 || disabled}
       >
         Предыдущая
       </button>
@@ -134,7 +145,7 @@ function Pagination({
         onClick={() => {
           onPageChange(pageNumber + 1);
         }}
-        disabled={pageNumber === lastPageNumber}
+        disabled={pageNumber === lastPageNumber || disabled}
       >
         Следующая
       </button>

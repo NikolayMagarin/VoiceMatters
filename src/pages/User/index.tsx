@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
@@ -134,17 +135,22 @@ function User() {
                 Подписано петиций: <b>{user.petitionsSigned}</b>
               </div>
             </div>
-            {user.petitionsCreated > 0 && (
+            {
               <div style={{ marginTop: '50px' }}>
-                <div className={styles['block-title']}>
-                  Петиции пользователя
-                </div>
-                <SearchPetitions creatorId={user.id} />
+                {user.petitionsCreated > 0 && (
+                  <>
+                    <div className={styles['block-title']}>
+                      Петиции пользователя
+                    </div>
+                    <SearchPetitions creatorId={user.id} />
+                  </>
+                )}
               </div>
-            )}
+            }
           </>
         )}
       </main>
+      <Footer />
     </>
   );
 }

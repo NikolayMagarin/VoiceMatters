@@ -110,7 +110,7 @@ export async function errorHandler(axiosError: AxiosError<any, any>) {
     ?.Message as string;
 
   if (axiosError.status === 403) {
-    error = new AuthError('Not Allowed', 403, {
+    error = new AuthError('Not Allowed: ' + axiosError.message, 403, {
       originalMessage: axiosError.message,
       originalText: responseErrorText || axiosError.message,
       text:
@@ -122,12 +122,16 @@ export async function errorHandler(axiosError: AxiosError<any, any>) {
 
   if (axiosError.status === 400) {
     if (isValidationError(axiosError)) {
-      error = new ValidationError('Validation failed', 400, {
-        originalMessage: axiosError.message,
-        originalErrors: axiosError.response?.data?.errors,
-      });
+      error = new ValidationError(
+        'Validation failed: ' + axiosError.message,
+        400,
+        {
+          originalMessage: axiosError.message,
+          originalErrors: axiosError.response?.data?.errors,
+        }
+      );
     } else {
-      error = new BadRequestError('Bad Request', 400, {
+      error = new BadRequestError('Bad Request: ' + axiosError.message, 400, {
         originalMessage: axiosError.message,
         originalText: responseErrorText || axiosError.message,
         text:

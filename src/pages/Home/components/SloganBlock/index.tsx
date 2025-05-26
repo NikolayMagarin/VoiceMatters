@@ -34,6 +34,7 @@ function SloganBlock() {
     ['initialStats'],
     () => api.get<GetStatsResponse>(apiPath.getStats),
     {
+      staleTime: 0,
       onSuccess({ data }) {
         setStats({
           users: data.userQuantity,

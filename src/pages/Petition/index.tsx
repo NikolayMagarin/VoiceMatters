@@ -197,6 +197,10 @@ function Petition() {
                   ))}
                 </div>
               )}
+              <div className={styles['date']}>
+                Опубликовано{' '}
+                {new Date(petition.createdDate).toLocaleDateString('ru')}
+              </div>
             </div>
             <div className={styles['users-wrapper']}>
               <UsersSigned

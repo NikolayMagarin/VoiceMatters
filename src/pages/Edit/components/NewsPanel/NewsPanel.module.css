@@ -91,3 +91,9 @@
 .btn:not(:disabled):hover {
   background-color: #c5c5c5;
 }
+
+.link {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}

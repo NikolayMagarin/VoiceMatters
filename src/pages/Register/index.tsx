@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
@@ -20,6 +20,7 @@ function Register() {
   const [imagePreview, setImagePreview] = useState('');
   const { login, isAuthenticated, user, logout, fetchUser } = useAuth();
   const navigate = useNavigate();
+  const [submitStarted, setSubmitStarted] = useState(false);
 
   const handleImageSelect = useCallback(
     (e: ChangeEvent) => {
@@ -40,6 +41,7 @@ function Register() {
         toast.error(validated.error);
         return;
       }
+      setSubmitStarted(true);
 
       const data = validated.data as FormData;
 
@@ -57,7 +59,9 @@ function Register() {
         URL.revokeObjectURL(imagePreview);
 
         navigate('/');
-      } catch {}
+      } catch {
+        setSubmitStarted(false);
+      }
     },
     [login, navigate, imagePreview, fetchUser]
   );
@@ -167,9 +171,16 @@ function Register() {
                 />
               </div>
             </div>
-            <button type='submit' className={styles['submit-btn']}>
+            <button
+              type='submit'
+              className={styles['submit-btn']}
+              disabled={submitStarted}
+            >
               Зарегистрироваться
             </button>
+            <div style={{ textAlign: 'center' }}>
+              Уже есть аккаунт? <Link to='/login'>Авторизоваться</Link>
+            </div>
           </form>
         )}
         {isAuthenticated && !!user && (

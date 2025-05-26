@@ -165,6 +165,12 @@
   justify-content: space-between;
 }
 
+.date {
+  margin-top: 15px;
+  color: grey;
+  font-size: 16px;
+}
+
 .img-placeholder {
   aspect-ratio: 1.67;
   width: 100%;

@@ -46,7 +46,7 @@ function SearchPetitions() {
         })
       );
     },
-    { select: ({ data }) => data, keepPreviousData: true, staleTime: 300_000 }
+    { select: ({ data }) => data, keepPreviousData: true }
   );
 
   const onParamsChange = useCallback(
@@ -86,6 +86,7 @@ function SearchPetitions() {
             pageNumber={pageNumber}
             lastPageNumber={lastPageNumber}
             onPageChange={onPageChange}
+            disabled={isLoading}
           />
         )}
         <div className={styles.container}>
@@ -99,6 +100,7 @@ function SearchPetitions() {
             pageNumber={pageNumber}
             lastPageNumber={lastPageNumber}
             onPageChange={onPageChange}
+            disabled={isLoading}
           />
         )}
       </main>
@@ -111,20 +113,24 @@ interface PaginationProps {
   pageNumber: number;
   lastPageNumber: number | null;
   onPageChange: (pageNumber: number) => void;
+  disabled?: boolean;
 }
 
 function Pagination({
   pageNumber,
   onPageChange,
   lastPageNumber,
+  disabled = false,
 }: PaginationProps) {
+  if (lastPageNumber === 1) return <></>;
+
   return (
     <div className={styles['page-btns']}>
       <button
         onClick={() => {
           onPageChange(pageNumber - 1);
         }}
-        disabled={pageNumber === 1}
+        disabled={pageNumber === 1 || disabled}
       >
         Предыдущая
       </button>
@@ -133,7 +139,7 @@ function Pagination({
         onClick={() => {
           onPageChange(pageNumber + 1);
         }}
-        disabled={pageNumber === lastPageNumber}
+        disabled={pageNumber === lastPageNumber || disabled}
       >
         Следующая
       </button>

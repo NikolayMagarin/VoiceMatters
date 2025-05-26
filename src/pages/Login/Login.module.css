@@ -30,7 +30,14 @@
   transition: 150ms;
 
   align-self: center;
+}
+
+.submit-btn:not(:disabled) {
   cursor: pointer;
+}
+
+.submit-btn:not(:disabled):hover {
+  background-color: #c5c5c5;
 }
 
 .input-group {

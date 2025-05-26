@@ -23,6 +23,7 @@ import NewsPanel from './components/NewsPanel';
 import { apiPath } from '../../lib/api/apiPath';
 import { NotFoundError, ValidationError } from '../../lib/api/errors';
 import NotFound from '../NotFound';
+import { useAuth } from '../../lib/auth';
 
 function Edit() {
   const petitionId = useParams<'id'>().id!;
@@ -34,6 +35,7 @@ function Edit() {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const toastId = useRef<ToastId>();
+  const { user } = useAuth();
 
   const {
     data: petition,
@@ -121,6 +123,10 @@ function Edit() {
     return <NotFound text='Упс, такой петиции не существует' />;
   }
 
+  if (user?.id !== petition?.creator.id) {
+    return <NotFound text='Упс, вас тут быть не должно' />;
+  }
+
   return (
     <>
       <Header />
@@ -134,8 +140,17 @@ function Edit() {
                 {petition.isCompleted && (
                   <>
                     <br />
-                    <span style={{ fontSize: '16px' }}>
+                    <span style={{ fontSize: '16px', color: '#a7a0a0' }}>
                       (Редактирование завершенной петиции невозможно)
+                    </span>
+                  </>
+                )}
+                {!petition.isCompleted && petition.signQuantity >= 1000 && (
+                  <>
+                    <br />
+                    <span style={{ fontSize: '16px', color: '#a7a0a0' }}>
+                      (Редактирование петиции с большим количеством подписей
+                      невозможно)
                     </span>
                   </>
                 )}
@@ -145,24 +160,24 @@ function Edit() {
                 onChange={onTitleChange}
                 defaultValue={petition.title}
                 className={styles['title-input']}
-                disabled={petition.isCompleted}
+                disabled={petition.isCompleted || petition.signQuantity >= 1000}
               />
               <Tags
                 tags={tags}
                 onTagsChange={setTags}
-                disabled={petition.isCompleted}
+                disabled={petition.isCompleted || petition.signQuantity >= 1000}
               />
               <Slider
                 items={images}
                 onItemsChange={setImages}
-                disabled={petition.isCompleted}
+                disabled={petition.isCompleted || petition.signQuantity >= 1000}
               />
               <Editor
                 onChange={setPayload}
                 initialContentState={payload}
-                disabled={petition.isCompleted}
+                disabled={petition.isCompleted || petition.signQuantity >= 1000}
               />
-              {!petition.isCompleted && (
+              {!petition.isCompleted && petition.signQuantity < 1000 && (
                 <div className={styles['submit-btn-wrapper']}>
                   <button
                     onClick={updatePetition}

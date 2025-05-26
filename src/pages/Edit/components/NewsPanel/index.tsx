@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ChangeEventHandler, useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Modal from '../../../../components/Modal';
 import { api } from '../../../../lib/api';
@@ -12,6 +12,7 @@ import {
   UpdateNewsResponse,
 } from '../../../../lib/api/types';
 import { plural } from '../../../../utils/plural';
+import cs from 'classnames';
 import styles from './NewsPanel.module.css';
 
 interface Props {
@@ -155,7 +156,13 @@ function NewsPanel({ petition, onUpdate }: Props) {
 
   return (
     <div className={styles['wrapper']}>
-      <div className={styles['label']}>Управление петициией</div>
+      <div className={styles['label']}>Управление петициией </div>
+      <Link
+        to={'/petition/' + petition.id}
+        className={cs(styles['btn'], styles['link'])}
+      >
+        Перейти к петиции
+      </Link>
       <button
         onClick={() => setShowCompleteModal(true)}
         className={styles['btn']}

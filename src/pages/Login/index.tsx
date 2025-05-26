@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useRef } from 'react';
+import { FormEvent, useCallback, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
@@ -10,10 +10,12 @@ function Login() {
   const formRef = useRef<HTMLFormElement>(null);
   const { login, isAuthenticated, user, logout, fetchUser } = useAuth();
   const navigate = useNavigate();
+  const [submitStarted, setSubmitStarted] = useState(false);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault();
+      setSubmitStarted(true);
 
       const data = new FormData(formRef.current!);
 
@@ -30,7 +32,9 @@ function Login() {
         fetchUser();
 
         navigate('/');
-      } catch {}
+      } catch {
+        setSubmitStarted(false);
+      }
     },
     [login, navigate, fetchUser]
   );
@@ -71,7 +75,11 @@ function Login() {
                 />
               </div>
             </div>
-            <button type='submit' className={styles['submit-btn']}>
+            <button
+              type='submit'
+              className={styles['submit-btn']}
+              disabled={submitStarted}
+            >
               Авторизоваться
             </button>
 
