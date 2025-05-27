@@ -31,8 +31,6 @@
 .logo-wrapper {
   display: flex;
   gap: 17px;
-
-  pointer-events: none;
 }
 
 .nav-links {

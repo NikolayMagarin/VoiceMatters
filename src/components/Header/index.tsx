@@ -3,8 +3,6 @@ import { useAuth } from '../../lib/auth';
 import cn from 'classnames';
 import styles from './Header.module.css';
 
-import LogoIcon from './images/logo60.png';
-
 function Header({
   navigated,
 }: {
@@ -15,10 +13,14 @@ function Header({
   return (
     <header className={styles.header}>
       <div className={styles['nav-area']}>
-        <div className={styles['logo-wrapper']}>
-          <img src={LogoIcon} className={styles.logo} alt=''></img>
+        <Link to='/' className={cn(styles['logo-wrapper'], styles.link)}>
+          <img
+            src='/assets/images/logo60.png'
+            className={styles.logo}
+            alt=''
+          ></img>
           VoiceMatters
-        </div>
+        </Link>
         <nav className={styles['nav-links']}>
           <div
             className={cn(

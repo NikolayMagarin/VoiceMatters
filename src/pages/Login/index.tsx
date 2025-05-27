@@ -54,6 +54,14 @@ function Login() {
 
   return (
     <div className={styles.login}>
+      <Link to='/' className={styles['logo-wrapper']}>
+        <img
+          src='/assets/images/logo60.png'
+          className={styles.logo}
+          alt=''
+        ></img>
+        VoiceMatters
+      </Link>
       <div className={styles['form-wrapper']}>
         {!isAuthenticated && (
           <form
