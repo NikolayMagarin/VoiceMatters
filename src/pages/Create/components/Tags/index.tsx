@@ -85,6 +85,8 @@ function Tags() {
           onChange={onInputChange}
           onSubmit={() => onOptionChoose(inputRef.current!.value)}
           placeholder='К каким темам относится проблема, например "Природа"'
+          name='tag'
+          autoComplete='off'
         ></input>
         <button
           className={styles['choose-btn']}

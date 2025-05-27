@@ -102,6 +102,8 @@ function Create() {
             onChange={onTitleChange}
             value={title}
             className={styles['title-input']}
+            name='title'
+            autoComplete='off'
           />
           <Tags />
           <Slider />

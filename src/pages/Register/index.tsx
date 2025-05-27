@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useQueryClient } from 'react-query';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { api } from '../../lib/api';
@@ -22,6 +23,7 @@ function Register() {
   const navigate = useNavigate();
   const [submitStarted, setSubmitStarted] = useState(false);
   const redirectUrl = useLocation()?.state?.redirect;
+  const queryClient = useQueryClient();
 
   const handleImageSelect = useCallback(
     (e: ChangeEvent) => {
@@ -53,9 +55,11 @@ function Register() {
         );
         const { accessToken, refreshToken } = registerResponse.data;
 
-        saveCookies({ accessToken, refreshToken });
+        saveCookies({ refreshToken });
         login(null, accessToken);
         fetchUser();
+
+        queryClient.invalidateQueries();
 
         URL.revokeObjectURL(imagePreview);
 
@@ -68,7 +72,7 @@ function Register() {
         setSubmitStarted(false);
       }
     },
-    [login, navigate, imagePreview, fetchUser, redirectUrl]
+    [login, navigate, imagePreview, fetchUser, queryClient, redirectUrl]
   );
 
   useEffect(() => {}, []);

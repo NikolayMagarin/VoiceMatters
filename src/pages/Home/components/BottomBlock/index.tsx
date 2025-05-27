@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../../lib/auth';
 import styles from './BottomBlock.module.css';
 
 function BottomBlock() {
-  const { isAuthenticated } = useAuth();
   return (
     <>
       <div className={styles.name}>Сделаем мир лучше вместе!</div>
@@ -15,10 +13,7 @@ function BottomBlock() {
           <div>Побеждайте каждый день</div>
         </div>
         <div className={styles['right-part']}>
-          <Link
-            to={isAuthenticated ? '/create' : '/login'}
-            className={styles.btn}
-          >
+          <Link to='/create' className={styles.btn}>
             Создать петицию
           </Link>
         </div>

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -16,6 +16,7 @@ import styles from './User.module.css';
 function User() {
   const userId = useParams<'id'>().id!;
   const { user: currentUser, logout } = useAuth();
+  const queryClient = useQueryClient();
 
   const {
     data: user,
@@ -63,8 +64,9 @@ function User() {
 
   const handleLogout = useCallback(() => {
     logout();
+    queryClient.invalidateQueries();
     navigate('/login');
-  }, [logout, navigate]);
+  }, [logout, navigate, queryClient]);
 
   if (
     isError &&

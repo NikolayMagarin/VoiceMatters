@@ -1,4 +1,5 @@
 import { FormEvent, useCallback, useRef, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { apiPath } from '../../lib/api/apiPath';
@@ -12,6 +13,7 @@ function Login() {
   const navigate = useNavigate();
   const [submitStarted, setSubmitStarted] = useState(false);
   const redirectUrl = useLocation()?.state?.redirect;
+  const queryClient = useQueryClient();
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent) => {
@@ -28,9 +30,11 @@ function Login() {
           password: data.get('Password')?.toString(),
         });
 
-        saveCookies({ accessToken, refreshToken });
+        saveCookies({ refreshToken });
         login(null, accessToken);
         fetchUser();
+
+        queryClient.invalidateQueries();
 
         if (typeof redirectUrl === 'string') {
           navigate(redirectUrl);
@@ -41,7 +45,7 @@ function Login() {
         setSubmitStarted(false);
       }
     },
-    [login, navigate, fetchUser, redirectUrl]
+    [login, navigate, fetchUser, queryClient, redirectUrl]
   );
 
   const handleGoBack = useCallback(() => {
