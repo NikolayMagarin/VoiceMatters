@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../lib/auth';
 import cn from 'classnames';
@@ -9,6 +10,7 @@ function Header({
   navigated?: 'news' | 'create' | 'petitions' | 'users';
 }) {
   const { user, isAuthenticated } = useAuth();
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className={styles.header}>
@@ -21,51 +23,52 @@ function Header({
           ></img>
           VoiceMatters
         </Link>
-        <nav className={styles['nav-links']}>
-          <div
-            className={cn(
-              styles['link-wrapper'],
-              navigated === 'news' && styles.navigated
-            )}
-          >
-            <Link to='/' className={styles.link}>
-              Главная
-            </Link>
-            <div className={styles.underline}></div>
-          </div>
-          <div
-            className={cn(
-              styles['link-wrapper'],
-              navigated === 'create' && styles.navigated
-            )}
-          >
-            <Link to='/create' className={styles.link}>
-              Создать петицию
-            </Link>
-            <div className={styles.underline}></div>
-          </div>
-          <div
-            className={cn(
-              styles['link-wrapper'],
-              navigated === 'petitions' && styles.navigated
-            )}
-          >
-            <Link to='/petitions' className={styles.link}>
-              Петиции
-            </Link>
-            <div className={styles.underline}></div>
-          </div>
-          <div
-            className={cn(
-              styles['link-wrapper'],
-              navigated === 'users' && styles.navigated
-            )}
-          >
-            <Link to='/users' className={styles.link}>
-              Пользователи
-            </Link>
-            <div className={styles.underline}></div>
-          </div>
+
+        <button
+          className={styles.burger}
+          onClick={() => setMenuOpen(!isMenuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav
+          className={cn(styles['nav-links'], {
+            [styles['nav-open']]: isMenuOpen,
+          })}
+        >
+          {['news', 'create', 'petitions', 'users'].map((page) => (
+            <div
+              key={page}
+              className={cn(
+                styles['link-wrapper'],
+                navigated === page && styles.navigated
+              )}
+            >
+              <Link
+                to={
+                  page === 'news'
+                    ? '/'
+                    : page === 'create'
+                    ? '/create'
+                    : `/${page}`
+                }
+                className={styles.link}
+                onClick={() => setMenuOpen(false)}
+              >
+                {
+                  {
+                    news: 'Главная',
+                    create: 'Создать петицию',
+                    petitions: 'Петиции',
+                    users: 'Пользователи',
+                  }[page]
+                }
+              </Link>
+              <div className={styles.underline}></div>
+            </div>
+          ))}
         </nav>
       </div>
 
