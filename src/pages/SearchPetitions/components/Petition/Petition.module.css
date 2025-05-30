@@ -46,30 +46,6 @@
   border: 1px solid #e4ecec;
 }
 
-@media (max-width: 1024px) {
-  .petition {
-    height: 250px;
-  }
-
-  .text {
-    -webkit-line-clamp: 2 !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .petition {
-    height: 150px;
-  }
-
-  .title {
-    font-size: var(--font-size-medium-large);
-  }
-
-  .text {
-    font-size: var(--font-size-medium);
-  }
-}
-
 .petition-data {
   flex-grow: 1;
 
@@ -133,4 +109,58 @@
 .date {
   color: grey;
   font-size: var(--font-size-medium);
+}
+
+@media (max-width: 1024px) {
+  .petition {
+    height: 250px;
+    padding: 10px;
+  }
+
+  .text {
+    -webkit-line-clamp: 2 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .petition {
+    height: 150px;
+  }
+
+  .metadata-info {
+    gap: 0;
+  }
+
+  .metadata-label {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .metadata-labels:not(:empty) {
+    margin: 0;
+  }
+
+  .text {
+    text-indent: 0px;
+    font-size: var(--font-size-medium);
+    color: #505050;
+  }
+
+  .title {
+    font-size: var(--font-size-medium-large);
+  }
+
+  .signs {
+    font-size: var(--font-size-medium);
+  }
+
+  .petition-data {
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .date-text {
+    display: none;
+  }
 }

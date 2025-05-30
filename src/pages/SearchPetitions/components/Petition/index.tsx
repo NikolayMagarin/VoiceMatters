@@ -66,7 +66,7 @@ function Petition({ petition }: Props) {
               {plural(petition.signQuantity, 'подпись', 'подписи', 'подписей')}
             </div>
             <div className={styles['date']}>
-              Опубликовано{' '}
+              <span className={styles['date-text']}>Опубликовано </span>
               {new Date(petition.createdDate).toLocaleDateString('ru')}
             </div>
           </div>

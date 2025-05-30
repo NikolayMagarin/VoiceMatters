@@ -5,7 +5,6 @@
   justify-content: space-between;
 
   background-color: #d9d9d9;
-  /* height: 30px; */
 
   padding: 15px min(48px, 5%);
   line-height: 28px;
@@ -25,7 +24,6 @@
 .logo {
   width: 28px;
   height: 28px;
-  /* border-radius: 50%; */
 }
 
 .logo-wrapper {
@@ -120,7 +118,7 @@
   .nav-links {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100%);
     left: 0;
     flex-direction: column;
     width: 100%;

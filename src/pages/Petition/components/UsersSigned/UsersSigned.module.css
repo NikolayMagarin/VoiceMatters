@@ -54,6 +54,7 @@
 .btns-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .btns-wrapper > button {
@@ -77,4 +78,17 @@
 
 .btns-wrapper > button:not(:disabled):hover {
   background: #fdfdfd;
+}
+
+@media (max-width: 768px) {
+  .btns-wrapper > button {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 520px) {
+  .user-wrapper {
+    flex: 1;
+    max-width: 100%;
+  }
 }

@@ -30,6 +30,7 @@ function UsersSigned({ petitionId, signQuantity }: Props) {
     },
     {
       select: (response) => response.data,
+      keepPreviousData: true,
     }
   );
 
@@ -74,7 +75,7 @@ function UsersSigned({ petitionId, signQuantity }: Props) {
               >
                 Предыдущая
               </button>
-              Страница {pageNumber} из {lastPageNumber}
+              {pageNumber} / {lastPageNumber}
               <button
                 onClick={() => {
                   setPageNumber(pageNumber + 1);

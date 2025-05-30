@@ -24,7 +24,7 @@
 }
 
 .left-part {
-  width: 60%;
+  width: calc(70% - 100px);
   padding: 20px;
   box-sizing: border-box;
 
@@ -33,12 +33,15 @@
   justify-content: space-evenly;
 
   gap: 5px;
+
+  box-sizing: border-box;
 }
 
 .right-part {
-  width: 40%;
+  width: calc(30% + 100px);
   padding: 20px 0 20px 20px;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .name {
@@ -80,4 +83,37 @@
 
 .link:hover {
   background-color: #f4f4f4;
+}
+
+@media (max-width: 768px) {
+  .line {
+    margin: 0 15px;
+  }
+
+  .wrapper {
+    flex-direction: column-reverse;
+    padding: 20px;
+  }
+
+  .reverse {
+    flex-direction: column-reverse;
+  }
+
+  .left-part {
+    width: 100%;
+    padding: 0;
+  }
+
+  .reverse .right-part {
+    padding: 0;
+  }
+
+  .right-part {
+    width: 100%;
+    padding: 0;
+  }
+
+  .image {
+    margin-bottom: 10px;
+  }
 }

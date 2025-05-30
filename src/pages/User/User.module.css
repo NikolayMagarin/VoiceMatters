@@ -63,17 +63,13 @@
   background: #fefefe;
   border: 1px solid #f1f1f1;
   border-radius: 15px;
+  box-sizing: border-box;
 }
 
 .personal-property {
   display: flex;
 
   padding: 8px 10px 15px 20px;
-
-  /* background: #fefefe;
-  border: 1px solid #f1f1f1;
-  border-radius: 10px; */
-
   border-bottom: 1px solid #f1f1f1;
 }
 
@@ -182,6 +178,11 @@
   .personal-property-name {
     width: 100%;
   }
+
+  .logout-btn {
+    top: calc(50% + 55px);
+    right: 5px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -197,11 +198,17 @@
     width: 100%;
   }
 
-  .personal-property-name {
-    min-width: 300px;
-  }
-
   .info {
     flex-wrap: wrap;
+  }
+
+  .logout-btn {
+    top: calc(50% + 50px);
+  }
+
+  .personals-container,
+  .personal-property-name,
+  .statistic {
+    min-width: 50%;
   }
 }

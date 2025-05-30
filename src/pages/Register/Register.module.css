@@ -1,6 +1,6 @@
 .register {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   background: #a3a3a3;
   background: radial-gradient(circle, #a3a3a3 30%, #ffffff 100%);
@@ -22,6 +22,11 @@
 .logo {
   width: 28px;
   height: 28px;
+}
+
+.header {
+  text-align: center;
+  font-size: var(--font-size-larger);
 }
 
 .container {
@@ -51,8 +56,10 @@
   justify-content: center;
 
   gap: 26px;
+}
 
-  /* z-index: 1; */
+.form label {
+  font-size: var(--font-size-medium-large);
 }
 
 .input {
@@ -61,7 +68,6 @@
 
   background-color: #d9d9d9;
   border-radius: 15px;
-  border: none;
 
   padding: 0 20px;
   box-sizing: border-box;
@@ -69,7 +75,7 @@
   font-size: var(--font-size-medium-large);
 
   transition-duration: 150ms;
-  border: 1px solid #0000;
+  border: 1px solid #7474741a;
 }
 
 .input:hover {
@@ -219,4 +225,23 @@
 
 .logined-choises button:hover {
   box-shadow: 0px 0px 9px 0px rgba(34, 60, 80, 0.26);
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+
+  .header {
+    margin-top: 100px;
+  }
+
+  .input {
+    width: max(90vw, 250px);
+  }
+
+  .logo-wrapper {
+    position: absolute;
+  }
 }

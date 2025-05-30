@@ -6,29 +6,10 @@
   gap: 20px;
 }
 
-@media (min-width: 4096px) {
-  .main {
-    padding: 30px 500px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main {
-    padding: 30px 15px;
-  }
-}
-
 .container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* 
-  background-color: #fefefe;
-  border-radius: 15px;
-  border: 1px solid #f1f1f1;
-
-  padding: 10px;
-  box-sizing: border-box; */
 }
 
 .page-btns {
@@ -57,4 +38,24 @@
 
 .page-btns > button:not(:disabled):hover {
   background: #fdfdfd;
+}
+
+@media (min-width: 4096px) {
+  .main {
+    padding: 30px 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px 15px;
+  }
+
+  .page-btns > button {
+    min-width: 100px;
+  }
+
+  .container {
+    gap: 10px;
+  }
 }

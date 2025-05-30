@@ -222,7 +222,7 @@ function NewsPanel({ petition, onUpdate }: Props) {
           title='Вы уверены, что хотите завершить петицию?'
           onClose={closeModal}
         >
-          <div style={{ lineHeight: '10px' }}>
+          <div>
             <p>Завершив петицию, вы не сможете отменить это действие</p>
             <p>Завершенная петиция больше не сможет набирать подписи</p>
             <p>Завершенную петицию нельзя отредактировать</p>
@@ -242,7 +242,7 @@ function NewsPanel({ petition, onUpdate }: Props) {
           title='Вы уверены, что хотите удалить петицию?'
           onClose={closeModal}
         >
-          <div style={{ lineHeight: '10px' }}>
+          <div>
             <p>Петиция станет недоступна вам и другим пользователям</p>
             <p>Петицию нельзя восстановить</p>
           </div>

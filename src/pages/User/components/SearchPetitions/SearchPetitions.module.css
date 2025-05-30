@@ -33,3 +33,9 @@
 .page-btns > button:not(:disabled):hover {
   background: #fdfdfd;
 }
+
+@media (max-width: 768px) {
+  .page-btns > button {
+    min-width: 100px;
+  }
+}

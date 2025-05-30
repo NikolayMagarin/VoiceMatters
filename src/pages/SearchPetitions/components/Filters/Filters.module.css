@@ -159,3 +159,13 @@
 .sort-options > div:hover {
   background-color: #f1f1f1;
 }
+
+@media (max-width: 768px) {
+  .buttons {
+    gap: 10px;
+  }
+
+  .buttons > * {
+    min-width: 130px;
+  }
+}

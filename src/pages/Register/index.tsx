@@ -98,9 +98,7 @@ function Register() {
             ref={formRef}
             onSubmit={handleFormSubmit}
           >
-            <div style={{ fontSize: '35px', textAlign: 'center' }}>
-              Регистрация
-            </div>
+            <div className={styles.header}>Регистрация</div>
             <div className={styles.container}>
               <div className={styles['input-group']}>
                 <label htmlFor='FirstName'>Имя</label>
