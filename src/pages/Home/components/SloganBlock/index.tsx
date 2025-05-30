@@ -121,7 +121,9 @@ function SloganBlock() {
         </div>
       </div>
       <div className={styles['right-part']}>
-        <img src='/assets/images/paper.svg' alt='' className={styles.image} />
+        <div className={styles['image-wrapper']}>
+          <img src='/assets/images/people.png' alt='' />
+        </div>
       </div>
     </div>
   );
