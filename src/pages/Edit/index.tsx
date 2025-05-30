@@ -1,6 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { RawDraftContentState } from 'draft-js';
-import { ChangeEventHandler, useCallback, useRef, useState } from 'react';
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast, type Id as ToastId } from 'react-toastify';
@@ -49,24 +55,26 @@ function Edit() {
     },
     {
       select: (response) => response.data,
-      onSuccess: async (petition) => {
-        setTitle(petition.title);
-        setTags(petition.tags.map((tag) => tag.name));
-        setPayload(expand(JSON.parse(petition.textPayload)));
-        setImages(
-          await Promise.all(
-            petition.images
-              .sort((a, b) => a.order - b.order)
-              .map((image) => ({
-                name: image.caption || '',
-                image: imageUrl(image.uuid),
-                id: image.uuid,
-              }))
-          )
-        );
-      },
+      onSuccess: async (petition) => {},
     }
   );
+
+  useEffect(() => {
+    if (petition) {
+      setTitle(petition.title);
+      setTags(petition.tags.map((tag) => tag.name));
+      setPayload(expand(JSON.parse(petition.textPayload)));
+      Promise.all(
+        petition.images
+          .sort((a, b) => a.order - b.order)
+          .map((image) => ({
+            name: image.caption || '',
+            image: imageUrl(image.uuid),
+            id: image.uuid,
+          }))
+      ).then((imgs) => setImages(imgs));
+    }
+  }, [petition]);
 
   const onTitleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => setTitle(e.target.value),
@@ -123,7 +131,7 @@ function Edit() {
     return <NotFound text='Упс, такой петиции не существует' />;
   }
 
-  if (user?.id !== petition?.creator.id) {
+  if (petition && user && user?.id !== petition?.creator.id) {
     return <NotFound text='Упс, вас тут быть не должно' />;
   }
 
