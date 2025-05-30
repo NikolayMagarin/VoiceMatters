@@ -81,7 +81,7 @@ function User() {
       <main className={styles.main}>
         <div className={styles['block-title']}>
           Профиль пользователя{' '}
-          {!!currentUser && currentUser.id === user?.id && (
+          {!!currentUser && currentUser.id === userId && (
             <button className={styles['logout-btn']} onClick={handleLogout}>
               Выйти из аккаунта
             </button>
@@ -104,16 +104,18 @@ function User() {
                   <div className={styles['name']}>
                     {user.firstName} {user.lastName}
                   </div>
-                  {!!currentUser && currentUser.role === 'admin' && (
-                    <button
-                      className={styles['block-btn']}
-                      onClick={handleBlock}
-                    >
-                      {user.isBlocked
-                        ? 'Разблокировать пользователя'
-                        : 'Заблокировать пользователя'}
-                    </button>
-                  )}
+                  {!!currentUser &&
+                    currentUser.role === 'admin' &&
+                    currentUser.id !== userId && (
+                      <button
+                        className={styles['block-btn']}
+                        onClick={handleBlock}
+                      >
+                        {user.isBlocked
+                          ? 'Разблокировать пользователя'
+                          : 'Заблокировать пользователя'}
+                      </button>
+                    )}
                 </div>
               </div>
               <div className={styles['personals-container']}>
