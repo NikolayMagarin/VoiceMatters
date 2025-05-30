@@ -6,18 +6,6 @@
   gap: 20px;
 }
 
-@media (min-width: 4096px) {
-  .main {
-    padding: 30px 500px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main {
-    padding: 30px 15px;
-  }
-}
-
 .username-input {
   width: 1000px;
   max-width: 100%;
@@ -53,6 +41,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 
   padding: 20px 0px;
 
@@ -87,7 +76,7 @@
 }
 
 .user:hover {
-  box-shadow: 0 0 1px #ebebeb;
+  box-shadow: 0 0 2px #ebebeb;
 }
 
 .image {
@@ -136,4 +125,29 @@
 
 .page-btns > button:not(:disabled):hover {
   background: #fdfdfd;
+}
+
+@media (min-width: 4096px) {
+  .main {
+    padding: 30px 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .user {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .user {
+    min-width: 100%;
+  }
 }

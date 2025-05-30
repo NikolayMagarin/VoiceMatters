@@ -9,7 +9,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  font-size: var*--font-size-large);
+  font-size: var(--font-size-large);
   gap: 5px;
 }
 
@@ -26,6 +26,8 @@
   padding: 0px 65px 40px 65px;
   font-size: var(--font-size-x-large);
   text-align: center;
+
+  margin-top: 20px;
 }
 
 .btn {
@@ -36,9 +38,31 @@
   height: max-content;
   color: black;
 
+  text-align: center;
+  white-space: nowrap;
+
   transition: background-color 200ms;
 }
 
 .btn:hover {
   background-color: #b7b7b7;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .left-part {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 20px 10px;
+    width: 80%;
+    min-width: fit-content;
+  }
 }

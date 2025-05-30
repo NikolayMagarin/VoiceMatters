@@ -1,6 +1,5 @@
 import Header from '../../components/Header';
 import SloganBlock from './components/SloganBlock';
-import styles from './Home.module.css';
 
 import BottomBlock from './components/BottomBlock';
 import Footer from '../../components/Footer';
@@ -12,7 +11,6 @@ function Home() {
       <Header navigated='news' />
       <main>
         <SloganBlock />
-        <div className={styles.head}>Последние успешные петиции</div>
         <News />
         <BottomBlock />
       </main>

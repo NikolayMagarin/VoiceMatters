@@ -7,7 +7,7 @@ function BottomBlock() {
       <div className={styles.name}>Сделаем мир лучше вместе!</div>
       <div className={styles.wrapper}>
         <div className={styles['left-part']}>
-          <div>Создавайте петиции на актуальные проблемы</div>
+          <div>Создайте петицию на актуальную тематику</div>
           <div>Подписывайте понравившиеся петиции</div>
           <div>Отмечайте успехи ваших петиций</div>
           <div>Побеждайте каждый день</div>

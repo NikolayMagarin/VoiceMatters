@@ -32,6 +32,7 @@ function News() {
     <>
       {news && news.length > 0 && (
         <>
+          <div className={styles.head}>Последние успешные петиции</div>
           <hr className={styles.line} />
           {news.map((news, i) => {
             const img = news.petitionImages.length

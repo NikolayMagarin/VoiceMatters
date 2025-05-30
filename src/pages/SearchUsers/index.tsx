@@ -11,7 +11,7 @@ import { SearchUsersResponse } from '../../lib/api/types';
 import { imageUrl } from '../../utils/imageUrl';
 import styles from './SearchUsers.module.css';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 24;
 
 function SearchUsers() {
   const [searchName, setSearchName] = useSessionStorage(

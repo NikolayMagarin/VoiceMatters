@@ -1,3 +1,9 @@
+.head {
+  font-size: var(--font-size-x-large);
+  padding: 40px 0px;
+  text-align: center;
+}
+
 .line {
   margin: 25px 55px 50px 55px;
 }
