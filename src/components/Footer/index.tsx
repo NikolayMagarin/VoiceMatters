@@ -14,8 +14,18 @@ function Footer() {
       </div>
       <div className={styles.column}>
         <div className={styles.name}>Документация</div>
-        <Link to='/wiki'>Пользователю</Link>
-        <Link to='/docs'>Разработчику</Link>
+        <Link
+          target='_blank'
+          to='https://github.com/NikolayMagarin/VoiceMatters/wiki/Добро-пожаловать-в-VoiceMatters'
+        >
+          Пользователю
+        </Link>
+        <Link
+          target='_blank'
+          to='https://denekben.github.io/VoiceMatters.Backend/'
+        >
+          Разработчику
+        </Link>
       </div>
       <div className={styles.column}>
         <div className={styles.name}>О нас</div>
